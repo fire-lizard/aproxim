@@ -10,7 +10,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{B6EA0740-0DE0-463C-8BCB-17CF8F933B91}
+AppId={{CE49DCA1-2B4E-41C8-A502-36332C7EDE2F}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -37,11 +37,20 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\Users\me\Desktop\aproxim\release\aproxim.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\me\Desktop\aproxim\release\D3Dcompiler_47.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\me\Desktop\aproxim\release\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\me\Desktop\aproxim\release\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\me\Desktop\aproxim\release\opengl32sw.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\me\Desktop\aproxim\release\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\me\Desktop\aproxim\release\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\me\Desktop\aproxim\release\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\me\Desktop\aproxim\release\Qt5Svg.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\me\Desktop\aproxim\release\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\plugins\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\me\Desktop\aproxim\release\iconengines\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\me\Desktop\aproxim\release\imageformats\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\me\Desktop\aproxim\release\platforms\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\me\Desktop\aproxim\release\styles\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\me\Desktop\aproxim\release\translations\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
