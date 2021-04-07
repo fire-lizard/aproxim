@@ -678,11 +678,11 @@ void MainWindow::on_data_table_cellChanged(int row, int column) const
 void MainWindow::findModelClick() const
 {
     // TEST - FILLING DATA
-    for (int idx = 1; idx <= 100; idx++)
+    /*for (int idx = 1; idx <= 100; idx++)
     {
         ui->data_table->setItem(idx - 1, 0, new QTableWidgetItem(QString::number(idx)));
         ui->data_table->setItem(idx - 1, 1, new QTableWidgetItem(QString::number(pow(idx, 2))));
-    }
+    }*/
     vector<point> src_data;
     vector<point> linear_data;
     vector<point> dst_data;

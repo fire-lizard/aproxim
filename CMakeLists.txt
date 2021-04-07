@@ -63,30 +63,6 @@ if(ANDROID)
     xls_table.h
     aproxim.qrc
   )
-elseif(UNIX AND NOT APPLE)
-  add_executable(aproxim
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    options.cpp
-    options.h
-    options.ui
-    common.h
-    approximator.cpp
-    approximator.h
-    approximator_2.cpp
-    approximator_2.h
-    dataanalysis.cpp
-    dataanalysis.h
-    functions.cpp
-    functions.h
-    util.cpp
-    util.h
-    xls_table.cpp
-    xls_table.h
-    aproxim.qrc
-  )
 elseif(APPLE)
   add_executable(aproxim MACOSX_BUNDLE
     main.cpp
@@ -112,7 +88,7 @@ elseif(APPLE)
     aproxim.qrc
     ${APP_ICON_MACOSX}
   )
-elseif(WIN32)
+else()
   add_executable(aproxim
     main.cpp
     mainwindow.cpp
