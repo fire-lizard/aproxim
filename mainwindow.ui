@@ -14,7 +14,7 @@
    <string>Approximator</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="aproxim.qrc">
+   <iconset>
     <normaloff>:/new/prefix1/images/sigma.ico</normaloff>:/new/prefix1/images/sigma.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -250,7 +250,7 @@
         <item row="5" column="0" colspan="6">
          <widget class="QLabel" name="value_ad">
           <property name="text">
-           <string>Average deviation: </string>
+           <string>Mean deviation: </string>
           </property>
           <property name="wordWrap">
            <bool>false</bool>
@@ -260,7 +260,7 @@
         <item row="6" column="0" colspan="6">
          <widget class="QLabel" name="value_aqd">
           <property name="text">
-           <string>Mean-square deviation: </string>
+           <string>Standard deviation: </string>
           </property>
           <property name="wordWrap">
            <bool>false</bool>
@@ -529,7 +529,8 @@
    <class>QtCharts::QChartView</class>
    <extends>QGraphicsView</extends>
    <header location="global">QtCharts/QChartView&gt;
-#include &lt;QtCharts/chartsnamespace.h</header>
+
+#include &lt;QtCharts/chartsnamespace.h</header>
   </customwidget>
  </customwidgets>
  <resources>

@@ -183,7 +183,7 @@ void CalculateParameters(double a, double b, double &a1, double &b1, unsigned ch
 	}
 }
 
-int LinearData(const vector<point> &src_data, vector<point> &linear_data, signed char n0, unsigned char f)
+void LinearData(const vector<point> &src_data, vector<point> &linear_data, signed char n0, unsigned char f)
 {
     int row = 0;
 	for (const auto& index : src_data)
@@ -192,21 +192,12 @@ int LinearData(const vector<point> &src_data, vector<point> &linear_data, signed
         const double x = index.x;
         const double y = index.y;
         double x1, y1;
-        try
-        {
-            LinearParameters(x, y, x1, y1, f, n0);
-        }
-        catch (std::exception &ee)
-        {
-			QMessageBox::about(nullptr, "Error", ee.what());
-        	return row;
-        }
+        LinearParameters(x, y, x1, y1, f, n0);
         linear_data.push_back(point(x1,y1));
     }
-	return 0;
 }
 
-int LinearData(const vector<point> &src_data, vector<point3d> &linear_data_2, signed char n0, unsigned char f)
+void LinearData(const vector<point> &src_data, vector<point3d> &linear_data_2, signed char n0, unsigned char f)
 {
     int row = 0;
     for (const auto& index : src_data)
@@ -215,18 +206,9 @@ int LinearData(const vector<point> &src_data, vector<point3d> &linear_data_2, si
         const double x = index.x;
         const double y = index.y;
         double x1, y1;
-        try
-        {
-            LinearParameters(x, y, x1, y1, f, n0);
-        }
-        catch (std::exception &ee)
-        {
-			QMessageBox::about(nullptr, "Error", ee.what());
-			return row;
-        }
+        LinearParameters(x, y, x1, y1, f, n0);
         linear_data_2.push_back(point3d(x1, x, y1));
     }
-	return 0;
 }
 
 int CalculateData(vector<point> &src_data, vector<point> &dst_data, double &a1, double &b1, double &b2, signed char n0, vector<double> &mbx, unsigned char f)
@@ -237,10 +219,8 @@ int CalculateData(vector<point> &src_data, vector<point> &dst_data, double &a1, 
     linear_data.clear();
     dst_data.clear();
     linear_data_2.clear();
-	int res = 0;
-    if (f <= 19) res = LinearData(src_data, linear_data, n0, f);
-    if (f == 20) res = LinearData(src_data, linear_data_2, n0, f);
-	if (res != 0) return res;
+    if (f <= 19) LinearData(src_data, linear_data, n0, f);
+    if (f == 20) LinearData(src_data, linear_data_2, n0, f);
     double a = 0;
 	double b = 0;
     if (f == 19)

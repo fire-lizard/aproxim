@@ -5,6 +5,7 @@
 #include <ActiveQt/QAxObject>
 #endif
 #include <QtCore>
+#include "common.h"
 
 using namespace std;
 

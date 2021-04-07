@@ -168,8 +168,8 @@ void XLS_Table::setRowValues( QAxObject * worksheet, vector<point> data )
     const int count = data.size();
 	for (int index = 0; index < count; index++)
 	{
-		worksheet->querySubObject( "Cells( int, int )", index + 1, 1 )->dynamicCall("SetValue", QVariant(data[index].x()));
-		worksheet->querySubObject( "Cells( int, int )", index + 1, 2 )->dynamicCall("SetValue", QVariant(data[index].y()));
+        worksheet->querySubObject( "Cells( int, int )", index + 1, 1 )->dynamicCall("SetValue", QVariant(data[index].x));
+        worksheet->querySubObject( "Cells( int, int )", index + 1, 2 )->dynamicCall("SetValue", QVariant(data[index].y));
     }
 }
 

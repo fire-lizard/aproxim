@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Approximator"
-#define MyAppVersion "1.9"
+#define MyAppVersion "2.0"
 #define MyAppPublisher "Fire Lizard Software"
 #define MyAppURL "http://firelizardsoftware.com/"
 #define MyAppExeName "aproxim.exe"
@@ -24,7 +24,7 @@ DefaultGroupName={#MyAppName}
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\me\Desktop
 OutputBaseFilename=aproxim_setup
-SetupIconFile=C:\Users\me\Desktop\aproxim\images\sigma.ico
+SetupIconFile=images\sigma.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -36,21 +36,21 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\me\Desktop\aproxim\release\aproxim.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\D3Dcompiler_47.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\opengl32sw.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\Qt5Svg.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\me\Desktop\aproxim\release\iconengines\*"; DestDir: "{app}\iconengines"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\me\Desktop\aproxim\release\imageformats\*"; DestDir: "{app}\imageformats"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\me\Desktop\aproxim\release\platforms\*"; DestDir: "{app}\platforms"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\me\Desktop\aproxim\release\styles\*"; DestDir: "{app}\styles"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\me\Desktop\aproxim\release\translations\*"; DestDir: "{app}\translations"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "release\aproxim.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\D3Dcompiler_47.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\opengl32sw.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt5Svg.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\iconengines\*"; DestDir: "{app}\iconengines"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "release\imageformats\*"; DestDir: "{app}\imageformats"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "release\platforms\*"; DestDir: "{app}\platforms"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "release\styles\*"; DestDir: "{app}\styles"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "release\translations\*"; DestDir: "{app}\translations"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
