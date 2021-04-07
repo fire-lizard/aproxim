@@ -57,7 +57,7 @@ QList<QVariantList> XLS_Table::openXLS(QString name)
     return result;
 }
 
-void XLS_Table::saveXLS(QString name, QVector<QPointF> &data)
+void XLS_Table::saveXLS(QString name, vector<point> &data)
 {
     //Создаем объект Excel.Application
 	QAxObject * excel = new QAxObject( "Excel.Application", nullptr );
@@ -90,7 +90,7 @@ void XLS_Table::saveXLS(QString name, QVector<QPointF> &data)
     delete excel;
 }
 
-void XLS_Table::createChart(QAxObject *excel, QAxObject *workbook, QAxObject *worksheet, QVector<QPointF> &data)
+void XLS_Table::createChart(QAxObject *excel, QAxObject *workbook, QAxObject *worksheet, vector<point> &data)
 {
     //Создаем объект Charts (коллекция областей диаграмм)
     QAxObject * charts = workbook->querySubObject( "Charts" );
@@ -163,7 +163,7 @@ QList<QVariantList> XLS_Table::getRowValues( QAxObject * worksheet )
     return data;
 }
 
-void XLS_Table::setRowValues( QAxObject * worksheet, QVector<QPointF> data )
+void XLS_Table::setRowValues( QAxObject * worksheet, vector<point> data )
 {
     const int count = data.size();
 	for (int index = 0; index < count; index++)

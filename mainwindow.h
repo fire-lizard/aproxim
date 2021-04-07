@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <QVector>
 #include <QtCharts/QPolarChart>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QScatterSeries>
@@ -33,9 +32,9 @@ private:
     double _a1{}, _b1{}, _b2{};
     vector<double> _mbx;
     signed char _n0{};
-    QVector<double> _data_x;
-    QVector<double> _data_y;
-    QVector<double> _data_y1;
+    vector<double> _data_x;
+    vector<double> _data_y;
+    vector<double> _data_y1;
 	int _chartType{};
 
 private slots:

@@ -6,20 +6,20 @@
 */
 
 #include <math.h>
-#include <QVector>
-#include <QPointF>
+#include <vector>
+#include "common.h"
 using namespace std;
 
 class DataAnalysis{
 public:
-	static double LagrangeI(const QVector<QPointF> &data, double x);
-	static double LagrangeD(const QVector<QPointF> &data, double x);
-	static double Simpson(double a, double b, const QVector<QPointF> &data);
+    static double LagrangeI(const vector<point> &data, double x);
+    static double LagrangeD(const vector<point> &data, double x);
+    static double Simpson(double a, double b, const vector<point> &data);
 protected:
     DataAnalysis();
     ~DataAnalysis();
 private:
-	static double Lagrange(const QVector<QPointF> &data, double x, double &p);
+    static double Lagrange(const vector<point> &data, double x, double &p);
 };
 
 #endif

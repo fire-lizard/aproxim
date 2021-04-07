@@ -325,7 +325,7 @@ void MainWindow::saveClick()
 		else if (selected_filter == "Microsoft Excel 2003 files (*.xls)" ||
 				 selected_filter == "Microsoft Excel files (*.xlsx)")
 		{
-			QVector <QPointF> src_data;
+            vector <point> src_data;
 			string str_x;
 			string str_y;
 			int index = -1;
@@ -348,7 +348,7 @@ void MainWindow::saveClick()
 				{
 					const double x = strtod(str_x.c_str(), nullptr);
 					const double y = strtod(str_y.c_str(), nullptr);
-					src_data.push_back(QPointF(x, y));
+                    src_data.push_back(point(x, y));
 				}
 			}
 			while (!str_x.empty() && !str_y.empty());
@@ -360,7 +360,7 @@ void MainWindow::saveClick()
 
 void MainWindow::differentialClick() const
 {
-	QVector <QPointF> src_data;
+    vector <point> src_data;
 	string str_x;
     string str_y;
     int index = -1;
@@ -383,20 +383,20 @@ void MainWindow::differentialClick() const
         {
 	        const double x = strtod(str_x.c_str(), nullptr);
 	        const double y = strtod(str_y.c_str(), nullptr);
-            src_data.push_back(QPointF(x,y));
+            src_data.push_back(point(x,y));
         }
     }
     while (!str_x.empty() && !str_y.empty());
     for (int idx = 0;idx < src_data.size();idx++)
     {
-	    const double val = DataAnalysis::LagrangeD(src_data, src_data[idx].x());
+        const double val = DataAnalysis::LagrangeD(src_data, src_data[idx].x);
         ui->data_table->item(idx, 1)->setText(QString::number(val));
     }
 }
 
 void MainWindow::integralClick() const
 {
-    QVector <QPointF> src_data;
+    vector <point> src_data;
 	string str_x;
     string str_y;
     int index = -1;
@@ -419,13 +419,13 @@ void MainWindow::integralClick() const
         {
 	        const double x = strtod(str_x.c_str(), nullptr);
 	        const double y = strtod(str_y.c_str(), nullptr);
-            src_data.push_back(QPointF(x, y));
+            src_data.push_back(point(x, y));
         }
     }
     while (!str_x.empty() && !str_y.empty());
     for (int idx = 0;idx < src_data.size();idx++)
     {
-	    const double val = DataAnalysis::Simpson(0, src_data[idx].x(), src_data);
+        const double val = DataAnalysis::Simpson(0, src_data[idx].x, src_data);
         ui->data_table->item(idx, 1)->setText(QString::number(val));
     }
 }
@@ -484,10 +484,10 @@ void MainWindow::optionsClick()
 
 void MainWindow::approximateClick()
 {
-    QVector<QPointF> src_data;
-    QVector<QPointF> linear_data;
-    QVector<QPointF> dst_data;
-    vector<QVector<QVector3D>> linear_data_2;
+    vector<point> src_data;
+    vector<point> linear_data;
+    vector<point> dst_data;
+    vector<vector<point3d>> linear_data_2;
     double delta = 0;
     double sigma = 0;
     double r = 0;
@@ -520,7 +520,7 @@ void MainWindow::approximateClick()
         {
 	        const double x = strtod(str_x.c_str(), nullptr);
 	        const double y = strtod(str_y.c_str(), nullptr);
-            src_data.push_back(QPointF(x, y));
+            src_data.push_back(point(x, y));
         }
     }
     while (!str_x.empty() && !str_y.empty());
@@ -550,15 +550,15 @@ void MainWindow::approximateClick()
     int idx = 0;
     for (auto& index_src : src_data)
     {
-		_data_x[idx] = index_src.x();
-		_data_y[idx] = index_src.y();
+        _data_x[idx] = index_src.x;
+        _data_y[idx] = index_src.y;
         idx++;
     }
     idx = 0;
     for (auto& index_dst : dst_data)
     {
-		_data_y1[idx] = index_dst.y();
-        double value = index_dst.y();
+        _data_y1[idx] = index_dst.y;
+        double value = index_dst.y;
         value = floor(value * precision);
         value /= precision;
         ui->data_table->setItem(idx, 2, new QTableWidgetItem(QString::number(value).replace(',', '.')));
@@ -566,8 +566,8 @@ void MainWindow::approximateClick()
     }
     for (int index_diff = 0;index_diff < src_data.size();index_diff++)
     {
-        double d = 100 * abs(src_data[index_diff].y() - dst_data[index_diff].y());
-        d /= src_data[index_diff].y();
+        double d = 100 * abs(src_data[index_diff].y - dst_data[index_diff].y);
+        d /= src_data[index_diff].y;
         d = floor(d * precision);
         d /= precision;
         ui->data_table->setItem(index_diff, 3, new QTableWidgetItem(QString::number(d).replace(',', '.')));
@@ -575,8 +575,8 @@ void MainWindow::approximateClick()
 	QChart *chart;
 	QScatterSeries *series1 = new QScatterSeries(this);
 	QLineSeries *series2 = new QLineSeries(this);
-	QVector<QPointF> graph_src_data(src_data);
-	QVector<QPointF> graph_dst_data(dst_data);
+    vector<point> graph_src_data(src_data);
+    vector<point> graph_dst_data(dst_data);
 	if (_chartType == 0)
 	{
 		chart = new QChart();
@@ -586,20 +586,20 @@ void MainWindow::approximateClick()
 		chart = new QPolarChart();
 		for (int graphIndex = 0; graphIndex < src_data.size(); graphIndex++)
 		{
-			double ro = sqrt(pow(src_data[graphIndex].x(), 2) + pow(src_data[graphIndex].y(), 2));
-			double fi = sqrt(src_data[graphIndex].x() == 0 ? M_PI_2 : atan(src_data[graphIndex].y() / src_data[graphIndex].x()));
-			graph_src_data[graphIndex].setX(ro);
-			graph_src_data[graphIndex].setY(fi);
-			ro = sqrt(pow(dst_data[graphIndex].x(), 2) + pow(dst_data[graphIndex].y(), 2));
-			fi = sqrt(dst_data[graphIndex].x() == 0 ? M_PI_2 : atan(dst_data[graphIndex].y() / dst_data[graphIndex].x()));
-			graph_dst_data[graphIndex].setX(ro);
-			graph_dst_data[graphIndex].setY(fi);
+            double ro = sqrt(pow(src_data[graphIndex].x, 2) + pow(src_data[graphIndex].y, 2));
+            double fi = sqrt(src_data[graphIndex].x == 0 ? M_PI_2 : atan(src_data[graphIndex].y / src_data[graphIndex].x));
+            graph_src_data[graphIndex].x = ro;
+            graph_src_data[graphIndex].y = fi;
+            ro = sqrt(pow(dst_data[graphIndex].x, 2) + pow(dst_data[graphIndex].y, 2));
+            fi = sqrt(dst_data[graphIndex].x == 0 ? M_PI_2 : atan(dst_data[graphIndex].y / dst_data[graphIndex].x));
+            graph_dst_data[graphIndex].x = ro;
+            graph_dst_data[graphIndex].y = fi;
 		}
 	}
 	for (int pointIndex = 0; pointIndex < src_data.size(); pointIndex++)
 	{
-		series1->append(graph_src_data[pointIndex]);
-		series2->append(graph_dst_data[pointIndex]);
+        series1->append(graph_src_data[pointIndex].x, graph_src_data[pointIndex].y);
+        series2->append(graph_dst_data[pointIndex].x, graph_src_data[pointIndex].y);
 	}
 	chart->addSeries(series1);
 	chart->addSeries(series2);
@@ -683,10 +683,10 @@ void MainWindow::findModelClick() const
 		ui->data_table->setItem(idx - 1, 0, new QTableWidgetItem(QString::number(idx)));
 		ui->data_table->setItem(idx - 1, 1, new QTableWidgetItem(QString::number(pow(idx, 2))));
 	}*/
-	QVector<QPointF> src_data;
-	QVector<QPointF> linear_data;
-	QVector<QPointF> dst_data;
-	vector<QVector<QVector3D>> linear_data_2;
+    vector<point> src_data;
+    vector<point> linear_data;
+    vector<point> dst_data;
+    vector<vector<point3d>> linear_data_2;
 	src_data.clear();
 	linear_data.clear();
 	dst_data.clear();
@@ -713,7 +713,7 @@ void MainWindow::findModelClick() const
 		{
 			const double x = strtod(str_x.c_str(), nullptr);
 			const double y = strtod(str_y.c_str(), nullptr);
-			src_data.push_back(QPointF(x,y));
+            src_data.push_back(point(x,y));
 		}
 	}
 	while (!str_x.empty() && !str_y.empty());

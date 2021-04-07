@@ -4,7 +4,7 @@
 #include "approximator.h"
 //---------------------------------------------------------------------------
 
-double Approximator::GetParameter(const QVector<QPointF> &data, const string &operation)
+double Approximator::GetParameter(const vector<point> &data, const string &operation)
 {
     double result = 0;
     const int n = data.size();
@@ -12,40 +12,40 @@ double Approximator::GetParameter(const QVector<QPointF> &data, const string &op
     {
         if (operation == "AV_X")
         {
-            result += (*index).x() / n;
+            result += (*index).x / n;
         }
         if (operation == "AV_Y")
         {
-            result += (*index).y() / n;
+            result += (*index).y / n;
         }
         if (operation == "SUM_X")
         {
-            result += (*index).x();
+            result += (*index).x;
         }
         if (operation == "SUM_Y")
         {
-            result += (*index).y();
+            result += (*index).y;
         }
         if (operation == "SUM_XY")
         {
-            result += (*index).x() * (*index).y();
+            result += (*index).x * (*index).y;
         }
         if (operation == "SUM_X2")
         {
-            result += pow((*index).x(), 2);
+            result += pow((*index).x, 2);
         }
         if (operation == "SIGMA_X")
         {
-            result += pow((*index).x() - GetParameter(data, "AV_X"), 2);
+            result += pow((*index).x - GetParameter(data, "AV_X"), 2);
         }
         if (operation == "SIGMA_Y")
         {
-            result += pow((*index).y() - GetParameter(data, "AV_Y"), 2);
+            result += pow((*index).y - GetParameter(data, "AV_Y"), 2);
         }
         if (operation == "SIGMA_XY")
         {
-            const double val1 = (*index).x() - GetParameter(data, "AV_X");
-			const double val2 = (*index).y() - GetParameter(data, "AV_Y");
+            const double val1 = (*index).x - GetParameter(data, "AV_X");
+            const double val2 = (*index).y - GetParameter(data, "AV_Y");
             result += val1 * val2;
         }
     }
@@ -57,7 +57,7 @@ double Approximator::GetParameter(const QVector<QPointF> &data, const string &op
     return result;
 }
 
-double Approximator::GetA(const QVector<QPointF> &data)
+double Approximator::GetA(const vector<point> &data)
 {
 	const int n = data.size();
 	const double sx = GetParameter(data, "SUM_X");
@@ -69,7 +69,7 @@ double Approximator::GetA(const QVector<QPointF> &data)
     return result;
 }
 
-double Approximator::GetB(const QVector<QPointF> &data)
+double Approximator::GetB(const vector<point> &data)
 {
 	const int n = data.size();
 	const double sx = GetParameter(data, "SUM_X");
@@ -81,19 +81,19 @@ double Approximator::GetB(const QVector<QPointF> &data)
     return result;
 }
 
-double Approximator::Delta(const QVector<QPointF> &data1, const QVector<QPointF> &data2)
+double Approximator::Delta(const vector<point> &data1, const vector<point> &data2)
 {
     double result = 0;
 	const int n = data1.size();
     for (int index = 0;index < n;index++)
     {
-        result += (100 * abs(data1[index].y() - data2[index].y())) / data1[index].y();
+        result += (100 * abs(data1[index].y - data2[index].y)) / data1[index].y;
     }
     result /= n;
     return result;
 }
 
-double Approximator::Sigma(const QVector<QPointF> &data)
+double Approximator::Sigma(const vector<point> &data)
 {
     double result = 0;
 	const int n = data.size();
@@ -101,14 +101,14 @@ double Approximator::Sigma(const QVector<QPointF> &data)
 	const double b = GetB(data);
     for (const auto& index : data)
     {
-        result += pow(index.y() - b - a * index.x(), 2);
+        result += pow(index.y - b - a * index.x, 2);
     }
     result /= n;
     result = sqrt(abs(result));
     return result;
 }
 
-double Approximator::PolynomSigma(const QVector<QPointF> &data, const vector<double> &mbx, signed char n0)
+double Approximator::PolynomSigma(const vector<point> &data, const vector<double> &mbx, signed char n0)
 {
     double result = 0;
 	const int n = data.size();
@@ -118,17 +118,17 @@ double Approximator::PolynomSigma(const QVector<QPointF> &data, const vector<dou
 		const signed char sign = n0 >= 0 ? 1 : -1;
         for (signed char idx = sign;idx != n0;idx += sign)
         {
-            r += mbx[abs(idx)] * pow(index.x(), idx);
+            r += mbx[abs(idx)] * pow(index.x, idx);
         }
         r += mbx[0];
-        result += pow(index.y() - r, 2);
+        result += pow(index.y - r, 2);
     }
     result /= n;
     result = sqrt(abs(result));
     return result;
 }
 
-double Approximator::Correlation(const QVector<QPointF> &data)
+double Approximator::Correlation(const vector<point> &data)
 {
 	double result = pow(GetParameter(data, "SIGMA_XY"), 2);
     result /= GetParameter(data, "SIGMA_X");
@@ -136,7 +136,7 @@ double Approximator::Correlation(const QVector<QPointF> &data)
     return result;
 }
 
-double Approximator::CorrelationRatio(const QVector<QPointF> &linear_data, const QVector<QPointF> &dst_data)
+double Approximator::CorrelationRatio(const vector<point> &linear_data, const vector<point> &dst_data)
 {
 	const int n = dst_data.size();
 	const double sry = GetParameter(dst_data, "AV_Y");
@@ -144,12 +144,12 @@ double Approximator::CorrelationRatio(const QVector<QPointF> &linear_data, const
     double lambda2 = 0;
     for (const auto& index : dst_data)
     {
-        sigma2 += pow(index.y() - sry, 2);
+        sigma2 += pow(index.y - sry, 2);
     }
     sigma2 /= n;
     for (const auto& index : linear_data)
     {
-        lambda2 += pow(index.y() - sry, 2);
+        lambda2 += pow(index.y - sry, 2);
     }
     lambda2 /= n;
     return sqrt(sigma2 / lambda2);
@@ -181,7 +181,7 @@ bool Approximator::Zeidel(const multi_array<double, 2> &a, const vector<double> 
 	return true;
 }
 
-bool Approximator::GetPolynom(const QVector<QPointF> &data, vector<double> &mbx, signed char n)
+bool Approximator::GetPolynom(const vector<point> &data, vector<double> &mbx, signed char n)
 {
     vector<double> sy;
     sy.resize(abs(n), 0);
@@ -195,14 +195,14 @@ bool Approximator::GetPolynom(const QVector<QPointF> &data, vector<double> &mbx,
     {
         for (const auto& idx : data)
         {
-            sx[abs(index)] += pow(idx.x(), index);
+            sx[abs(index)] += pow(idx.x, index);
         }
     }
     for (signed char index = 0;index != n;index += sign)
     {
         for (const auto& idx : data)
         {
-            sy[abs(index)] += idx.y() * pow(idx.x(), index);
+            sy[abs(index)] += idx.y * pow(idx.x, index);
         }
     }
     for (signed char i = 0;i < abs(n);i++)

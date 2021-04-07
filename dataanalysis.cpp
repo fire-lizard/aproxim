@@ -6,14 +6,14 @@ DataAnalysis::DataAnalysis() = default;
 DataAnalysis::~DataAnalysis() = default;
 
 
-double DataAnalysis::Lagrange(const QVector<QPointF> &data, double t, double &p)
+double DataAnalysis::Lagrange(const vector<point> &data, double t, double &p)
 {
     vector <double> x;
 	vector <double> f;
 	for (const auto& index : data)
 	{
-		x.push_back(index.x());
-		f.push_back(index.y());
+        x.push_back(index.x);
+        f.push_back(index.y);
 	}
 	int i;
 	int n = data.size();
@@ -37,7 +37,7 @@ double DataAnalysis::Lagrange(const QVector<QPointF> &data, double t, double &p)
 }
 
 
-double DataAnalysis::Simpson(double a, double b, const QVector<QPointF> &data)
+double DataAnalysis::Simpson(double a, double b, const vector<point> &data)
 {
 	const double epsilon = 0.0001;
 	double x;
@@ -65,14 +65,14 @@ double DataAnalysis::Simpson(double a, double b, const QVector<QPointF> &data)
     return s2;
 }
 
-double DataAnalysis::LagrangeI(const QVector<QPointF> &data, double t)
+double DataAnalysis::LagrangeI(const vector<point> &data, double t)
 {
 	double res;
 	Lagrange(data, t, res);
 	return res;
 }
 
-double DataAnalysis::LagrangeD(const QVector<QPointF> &data, double t)
+double DataAnalysis::LagrangeD(const vector<point> &data, double t)
 {
 	double p;
 	return Lagrange(data, t, p);

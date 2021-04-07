@@ -6,24 +6,23 @@
 #include <string>
 #include <vector>
 #include <boost/multi_array.hpp>
-#include <QVector>
-#include <QPointF>
+#include "common.h"
 using namespace std;
 using namespace boost;
 
 class Approximator
 {
 public:
-    static double GetA(const QVector<QPointF> &data);
-    static double GetB(const QVector<QPointF> &data);
-    static double Delta(const QVector<QPointF> &data1, const QVector<QPointF> &data2);
-    static double Sigma(const QVector<QPointF> &data);
-    static double Correlation(const QVector<QPointF> &data);
-    static bool GetPolynom(const QVector<QPointF> &data, vector<double> &mbx, signed char n);
-    static double PolynomSigma(const QVector<QPointF> &data, const vector<double> &mbx, signed char n0);
-    static double CorrelationRatio(const QVector<QPointF> &linear_data, const QVector<QPointF> &dst_data);
+    static double GetA(const vector<point> &data);
+    static double GetB(const vector<point> &data);
+    static double Delta(const vector<point> &data1, const vector<point> &data2);
+    static double Sigma(const vector<point> &data);
+    static double Correlation(const vector<point> &data);
+    static bool GetPolynom(const vector<point> &data, vector<double> &mbx, signed char n);
+    static double PolynomSigma(const vector<point> &data, const vector<double> &mbx, signed char n0);
+    static double CorrelationRatio(const vector<point> &linear_data, const vector<point> &dst_data);
 protected:
-    static double GetParameter(const QVector<QPointF> &data, const string &operation);
+    static double GetParameter(const vector<point> &data, const string &operation);
 private:
     static bool Zeidel(const multi_array<double, 2> &a, const vector<double> &b, vector<double> &x, unsigned char n);
 };

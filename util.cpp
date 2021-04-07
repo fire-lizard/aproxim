@@ -183,14 +183,14 @@ void CalculateParameters(double a, double b, double &a1, double &b1, unsigned ch
 	}
 }
 
-int LinearData(const QVector<QPointF> &src_data, QVector<QPointF> &linear_data, signed char n0, unsigned char f)
+int LinearData(const vector<point> &src_data, vector<point> &linear_data, signed char n0, unsigned char f)
 {
     int row = 0;
 	for (const auto& index : src_data)
 	{
         row++;
-		const double x = index.x();
-		const double y = index.y();
+        const double x = index.x;
+        const double y = index.y;
         double x1, y1;
         try
         {
@@ -201,19 +201,19 @@ int LinearData(const QVector<QPointF> &src_data, QVector<QPointF> &linear_data, 
 			QMessageBox::about(nullptr, "Error", ee.what());
         	return row;
         }
-        linear_data.push_back(QPointF(x1,y1));
+        linear_data.push_back(point(x1,y1));
     }
 	return 0;
 }
 
-int LinearData(const QVector<QPointF> &src_data, QVector<QVector3D> &linear_data_2, signed char n0, unsigned char f)
+int LinearData(const vector<point> &src_data, vector<point3d> &linear_data_2, signed char n0, unsigned char f)
 {
     int row = 0;
     for (const auto& index : src_data)
     {
         row++;
-        const double x = index.x();
-        const double y = index.y();
+        const double x = index.x;
+        const double y = index.y;
         double x1, y1;
         try
         {
@@ -224,15 +224,15 @@ int LinearData(const QVector<QPointF> &src_data, QVector<QVector3D> &linear_data
 			QMessageBox::about(nullptr, "Error", ee.what());
 			return row;
         }
-    	linear_data_2.push_back(QVector3D(x1, x, y1));
+        linear_data_2.push_back(point3d(x1, x, y1));
     }
 	return 0;
 }
 
-int CalculateData(QVector<QPointF> &src_data, QVector<QPointF> &dst_data, double &a1, double &b1, double &b2, signed char n0, vector<double> &mbx, unsigned char f)
+int CalculateData(vector<point> &src_data, vector<point> &dst_data, double &a1, double &b1, double &b2, signed char n0, vector<double> &mbx, unsigned char f)
 {
-	QVector<QPointF> linear_data;
-	QVector<QVector3D> linear_data_2;
+    vector<point> linear_data;
+    vector<point3d> linear_data_2;
     const signed char sign = n0 >= 0 ? 1 : -1;
     linear_data.clear();
     dst_data.clear();
@@ -266,7 +266,7 @@ int CalculateData(QVector<QPointF> &src_data, QVector<QPointF> &dst_data, double
         Func9,Func10,Func11,Func12,Func13,Func14,Func15,Func16,Func17};
     for (auto& index : src_data)
     {
-		const double x1 = index.x();
+        const double x1 = index.x;
 		double y1 = 0;
         if (f <= 1)
         {
@@ -294,15 +294,15 @@ int CalculateData(QVector<QPointF> &src_data, QVector<QPointF> &dst_data, double
                 }
             }
         }
-        dst_data.push_back(QPointF(x1,y1));
+        dst_data.push_back(point(x1,y1));
     }
 	return 0;
 }
 
-void CalculateCoefficients(const QVector<QPointF> &src_data, const QVector<QPointF> &dst_data, const vector<double> &mbx, signed char n0, double &delta, double &sigma, double &r, double &nu, unsigned char f)
+void CalculateCoefficients(const vector<point> &src_data, const vector<point> &dst_data, const vector<double> &mbx, signed char n0, double &delta, double &sigma, double &r, double &nu, unsigned char f)
 {
-	QVector<QPointF> linear_data;
-	QVector<QVector3D> linear_data_2;
+    vector<point> linear_data;
+    vector<point3d> linear_data_2;
     linear_data.clear();
     linear_data_2.clear();
     const signed char sign = n0 >= 0 ? 1 : -1;
@@ -329,23 +329,23 @@ void CalculateCoefficients(const QVector<QPointF> &src_data, const QVector<QPoin
     }
 }
 
-QPointF CalculateMax(const QVector<QPointF> &data)
+point CalculateMax(const vector<point> &data)
 {
 	int f;
-	QPointF result = data[0];
+    point result = data[0];
 	do
 	{
 		f = 0;
 		for (const auto& index : data)
 		{
-			if (result.x() < index.x())
+            if (result.x < index.x)
 			{
-				result.setX(index.x());
+                result.x = index.x;
 				f = 1;
 			}
-			if (result.y() < index.y())
+            if (result.y < index.y)
 			{
-				result.setY(index.y());
+                result.y = index.y;
 				f = 1;
 			}
 		}
@@ -354,23 +354,23 @@ QPointF CalculateMax(const QVector<QPointF> &data)
 	return result;
 }
 
-QPointF CalculateMin(const QVector<QPointF> &data)
+point CalculateMin(const vector<point> &data)
 {
 	int f;
-	QPointF result = data[0];
+    point result = data[0];
 	do
 	{
 		f = 0;
 		for (const auto& index : data)
 		{
-			if (result.x() > index.x())
+            if (result.x > index.x)
 			{
-				result.setX(index.x());
+                result.x = index.x;
 				f = 1;
 			}
-			if (result.y() > index.y())
+            if (result.y > index.y)
 			{
-				result.setY(index.y());
+                result.y = index.y;
 				f = 1;
 			}
 		}
@@ -379,12 +379,12 @@ QPointF CalculateMin(const QVector<QPointF> &data)
 	return result;
 }
 
-QPointF GetLesserThan(const QVector<QPointF> &data, double x)
+point GetLesserThan(const vector<point> &data, double x)
 {
-	QPointF result = data[0];
+    point result = data[0];
 	for (const auto& index : data)
 	{
-		if (abs(result.x() - x) > abs(index.x() - x) && index.x() < x)
+        if (abs(result.x - x) > abs(index.x - x) && index.x < x)
 		{
 			result = index;
 		}
@@ -392,12 +392,12 @@ QPointF GetLesserThan(const QVector<QPointF> &data, double x)
 	return result;
 }
 
-QPointF GetGreaterThan(const QVector<QPointF> &data, double x)
+point GetGreaterThan(const vector<point> &data, double x)
 {
-	QPointF result = data[0];
+    point result = data[0];
 	for (const auto& index : data)
 	{
-		if (abs(result.x() - x) > abs(index.x() - x) && index.x() > x)
+        if (abs(result.x - x) > abs(index.x - x) && index.x > x)
 		{
 			result = index;
 		}
@@ -405,12 +405,12 @@ QPointF GetGreaterThan(const QVector<QPointF> &data, double x)
 	return result;
 }
 
-QVector3D GetParameters(double v1, double v2)
+point3d GetParameters(double v1, double v2)
 {
 	const double ar = (v1 + v2) / 2;
 	const double geom = sqrt(v1 * v2);
 	const double garm = 2 * v1 * v2 / (v1 + v2);
-	const QVector3D result(ar, geom, garm);
+    const point3d result(ar, geom, garm);
 	return result;
 }
 
@@ -419,27 +419,27 @@ double Interpolation(double x1, double x2, double y1, double y2, double xar)
 	return y1 + (((y2 - y1) / (x2 - x1)) * (xar - x1));
 }
 
-double GetParameter(const QVector<QPointF> &data, double xparam)
+double GetParameter(const vector<point> &data, double xparam)
 {
-	const QPointF p1 = GetLesserThan(data, xparam);
-	const QPointF p2 = GetGreaterThan(data, xparam);
-	return Interpolation(p1.x(), p2.x(), p1.y(), p2.y(), xparam);
+    const point p1 = GetLesserThan(data, xparam);
+    const point p2 = GetGreaterThan(data, xparam);
+    return Interpolation(p1.x, p2.x, p1.y, p2.y, xparam);
 }
 
-unsigned char Epsilon(const QVector<QPointF> &data)
+unsigned char Epsilon(const vector<point> &data)
 {
-	const double xminval = CalculateMin(data).x();
-	const double xmaxval = CalculateMax(data).x();
-	const double yminval = CalculateMin(data).y();
-	const double ymaxval = CalculateMax(data).y();
-	QVector3D xtuple = GetParameters(xminval, xmaxval);
-	QVector3D ytuple = GetParameters(yminval, ymaxval);
-	const double ar = GetParameter(data, xtuple.x());
-	const double geom = GetParameter(data, xtuple.y());
-	const double garm = GetParameter(data, xtuple.z());
-	double arr[] = {abs(ar - ytuple.x()), abs(ar - ytuple.y()), abs(ar - ytuple.z()),
-					abs(geom - ytuple.x()), abs(geom - ytuple.y()),
-					abs(garm - ytuple.x()), abs(garm - ytuple.z())};
+    const double xminval = CalculateMin(data).x;
+    const double xmaxval = CalculateMax(data).x;
+    const double yminval = CalculateMin(data).y;
+    const double ymaxval = CalculateMax(data).y;
+    point3d xtuple = GetParameters(xminval, xmaxval);
+    point3d ytuple = GetParameters(yminval, ymaxval);
+    const double ar = GetParameter(data, xtuple.x);
+    const double geom = GetParameter(data, xtuple.y);
+    const double garm = GetParameter(data, xtuple.z);
+    double arr[] = {abs(ar - ytuple.x), abs(ar - ytuple.y), abs(ar - ytuple.z),
+                    abs(geom - ytuple.x), abs(geom - ytuple.y),
+                    abs(garm - ytuple.x), abs(garm - ytuple.z)};
 	valarray<double> epsilons(arr, 7);
 	const double minvalue = epsilons.min();
 	for (unsigned index = 0; index < epsilons.size(); index++)
