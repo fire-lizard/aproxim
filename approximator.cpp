@@ -87,7 +87,10 @@ double Approximator::Delta(const vector<point> &data1, const vector<point> &data
 	const int n = data1.size();
     for (int index = 0;index < n;index++)
     {
-        result += (100 * abs(data1[index].y - data2[index].y)) / data1[index].y;
+        if (data1[index].y != 0)
+        {
+            result += (100 * abs(data1[index].y - data2[index].y)) / data1[index].y;
+        }
     }
     result /= n;
     return result;

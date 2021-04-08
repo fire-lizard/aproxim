@@ -2,6 +2,7 @@
     <qresource prefix="/new/prefix1">
         <file>images/quit.png</file>
         <file>images/settings.png</file>
+        <file>images/generate.png</file>
         <file>images/new.png</file>
         <file>images/open.png</file>
         <file>images/save.png</file>

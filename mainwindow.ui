@@ -386,6 +386,7 @@
    <addaction name="actionDifferential"/>
    <addaction name="actionIntegral"/>
    <addaction name="actionFindModel"/>
+   <addaction name="actionGenerate"/>
    <addaction name="actionOptions"/>
    <addaction name="actionAbout"/>
    <addaction name="actionExit"/>
@@ -520,6 +521,18 @@
    </property>
    <property name="toolTip">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionGenerate">
+   <property name="icon">
+    <iconset resource="aproxim.qrc">
+     <normaloff>:/new/prefix1/images/generate.png</normaloff>:/new/prefix1/images/generate.png</iconset>
+   </property>
+   <property name="text">
+    <string>Generate</string>
+   </property>
+   <property name="toolTip">
+    <string>Generate data</string>
    </property>
   </action>
  </widget>
@@ -713,6 +726,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionGenerate</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>generateClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>aboutClick()</slot>
@@ -723,6 +752,7 @@
   <slot>approximateClick()</slot>
   <slot>calculatePointClick()</slot>
   <slot>findModelClick()</slot>
+  <slot>generateClick()</slot>
   <slot>optionsClick()</slot>
   <slot>integralClick()</slot>
   <slot>differentialClick()</slot>
