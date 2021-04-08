@@ -529,16 +529,9 @@ void MainWindow::approximateClick()
 		_n0 = static_cast<signed char>(QInputDialog::getInt(this, tr("Input power of N"), "", 1));
 	}
 	const int row = CalculateData(src_data, dst_data, _a1, _b1, _b2, _n0, _mbx, f);
-    if (row != 0)
+    if (row == -1)
     {
-        if (row == -1)
-        {
-            QMessageBox::about(this, "Error", "Solution not found");
-        }
-        if (row > 0)
-        {
-            QMessageBox::about(this, "Error", "Division by zero in row " + QString::number(row));
-        }
+        QMessageBox::about(this, "Error", "Solution not found");
         return;
     }
 	_data_x.clear();
@@ -567,10 +560,29 @@ void MainWindow::approximateClick()
     for (int index_diff = 0;index_diff < src_data.size();index_diff++)
     {
         double d = 100 * abs(src_data[index_diff].y - dst_data[index_diff].y);
-        d /= src_data[index_diff].y;
+        if (src_data[index_diff].y != 0)
+        {
+            d /= src_data[index_diff].y;
+        }
+        else
+        {
+            d = 100;
+        }
         d = floor(d * precision);
         d /= precision;
         ui->data_table->setItem(index_diff, 3, new QTableWidgetItem(QString::number(d).replace(',', '.')));
+        if (d > 100)
+        {
+            ui->data_table->item(index_diff, 3)->setForeground(Qt::red);
+        }
+        else if (d > 0)
+        {
+            ui->data_table->item(index_diff, 3)->setForeground(Qt::blue);
+        }
+        else
+        {
+            ui->data_table->item(index_diff, 3)->setForeground(Qt::green);
+        }
     }
 	QChart *chart;
 	QScatterSeries *series1 = new QScatterSeries(this);
@@ -605,7 +617,7 @@ void MainWindow::approximateClick()
 	chart->addSeries(series2);
 	chart->createDefaultAxes();
 	ui->data_plot->setChart(chart);
-	CalculateCoefficients(src_data, dst_data, _mbx, _n0, delta, sigma, r, nu, f);
+    CalculateCoefficients(src_data, dst_data, _mbx, _n0, delta, sigma, r, nu, f);
 	_b1 = floor(_b1 * precision);
 	_b1 /= precision;
 	_a1 = floor(_a1 * precision);
@@ -737,10 +749,54 @@ void MainWindow::findModelClick() const
 
 void MainWindow::generateClick()
 {
-    // TEST - FILLING DATA
+    const unsigned char f = ui->selected_function->currentIndex() + 1;
     for (int idx = 1; idx <= 100; idx++)
     {
-        ui->data_table->setItem(idx - 1, 0, new QTableWidgetItem(QString::number(idx)));
-        ui->data_table->setItem(idx - 1, 1, new QTableWidgetItem(QString::number(pow(idx, 2))));
+        const double x1 = idx;
+        ui->data_table->setItem(idx - 1, 0, new QTableWidgetItem(QString::number(x1)));
+        func deps[17] = {Func1,Func2,Func3,Func4,Func5,Func6,Func7,Func8,
+            Func9,Func10,Func11,Func12,Func13,Func14,Func15,Func16,Func17};
+        double y1 = 0;
+        const double precision = pow((double)10, ui->selected_precision->value());
+        const double a1 = 0.1;
+        const double b1 = 0.1;
+        const double n0 = 0.3;
+        vector<double> mbx;
+        mbx.push_back(0.3);
+        mbx.push_back(0.2);
+        mbx.push_back(0.1);
+        const double b2 = 0.1;
+        if (ui->selected_function->currentIndex() <= 0)
+        {
+            y1 = deps[0](a1, b1, x1);
+        }
+        else
+        {
+            if (f < 18)
+            {
+                y1 = deps[ui->selected_function->currentIndex()](a1, b1, x1);
+            }
+            else
+            {
+                if (f == 18)
+                {
+                    y1 = Func18(a1, b1, x1, n0);
+                }
+                if (f == 19)
+                {
+                    y1 = Func19(mbx, x1, n0);
+                }
+                if (f == 20)
+                {
+                    y1 = Func20(a1, b1, b2, x1);
+                }
+            }
+        }
+        y1 = floor(y1 * precision);
+        y1 /= precision;
+        ui->data_table->setItem(idx - 1, 1, new QTableWidgetItem(QString::number(y1)));
+        ui->data_table->setItem(idx - 1, 2, new QTableWidgetItem());
+        ui->data_table->setItem(idx - 1, 3, new QTableWidgetItem());
     }
+    ui->tabWidget->setCurrentIndex(1);
 }

@@ -12,14 +12,14 @@ using namespace std;
 
 class DataAnalysis{
 public:
-    static double LagrangeI(const vector<point> &data, double x);
-    static double LagrangeD(const vector<point> &data, double x);
+    static double LagrangeI(const vector<point> &data, double t);
+    static double LagrangeD(const vector<point> &data, double t);
     static double Simpson(double a, double b, const vector<point> &data);
 protected:
     DataAnalysis();
     ~DataAnalysis();
 private:
-    static double Lagrange(const vector<point> &data, double x, double &p);
+    static double Lagrange(const vector<point> &data, double t, double &p);
 };
 
 #endif

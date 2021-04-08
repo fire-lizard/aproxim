@@ -174,7 +174,10 @@ bool Approximator::Zeidel(const multi_array<double, 2> &a, const vector<double> 
 			for (j = 0;j < i;j++) s1 += a[i][j] * x[j];
 			for (j = i;j < n;j++) s2 += a[i][j] * x[j];
 			const double v = x[i];
-			x[i] -= ((double)1 / a[i][i]) * (s1 + s2 - b[i]);
+            if (a[i][i] != 0)
+            {
+                x[i] -= ((double)1 / a[i][i]) * (s1 + s2 - b[i]);
+            }
 			if (fabs(v - x[i]) > m) m = fabs(v - x[i]);
 		}
 		iCount++;
@@ -217,4 +220,3 @@ bool Approximator::GetPolynom(const vector<point> &data, vector<double> &mbx, si
     }
     return Zeidel(a, sy, mbx, abs(n));
 }
-

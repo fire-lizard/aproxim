@@ -134,7 +134,10 @@ double Approximator_2::Delta(const vector<point3d> &data1, const vector<point3d>
 	const int n = data1.size();
     for (int index = 0;index < n;index++)
     {
-        result += 100 * abs(data1[index].z - data2[index].z) / data1[index].z;
+        if (data1[index].z != 0)
+        {
+            result += 100 * abs(data1[index].z - data2[index].z) / data1[index].z;
+        }
     }
     result /= n;
     return result;
@@ -163,4 +166,3 @@ double Approximator_2::Correlation(const vector<point3d> &data)
     result /= GetParameter(data, "SIGMA_Y");
     return result;
 }
-

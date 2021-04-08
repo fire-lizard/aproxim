@@ -412,8 +412,8 @@ unsigned char Epsilon(const vector<point> &data)
     const double xmaxval = CalculateMax(data).x;
     const double yminval = CalculateMin(data).y;
     const double ymaxval = CalculateMax(data).y;
-    point3d xtuple = GetParameters(xminval, xmaxval);
-    point3d ytuple = GetParameters(yminval, ymaxval);
+    const point3d xtuple = GetParameters(xminval, xmaxval);
+    const point3d ytuple = GetParameters(yminval, ymaxval);
     const double ar = GetParameter(data, xtuple.x);
     const double geom = GetParameter(data, xtuple.y);
     const double garm = GetParameter(data, xtuple.z);
