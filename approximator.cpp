@@ -8,7 +8,7 @@ double Approximator::GetParameter(const vector<point> &data, const string &opera
 {
     double result = 0;
     const int n = data.size();
-    for (auto index = data.begin();index != data.end();++index)
+    for (auto index = data.begin(); index != data.end(); ++index)
     {
         if (operation == "AV_X")
         {
@@ -59,24 +59,24 @@ double Approximator::GetParameter(const vector<point> &data, const string &opera
 
 double Approximator::GetA(const vector<point> &data)
 {
-	const int n = data.size();
-	const double sx = GetParameter(data, "SUM_X");
-	const double sy = GetParameter(data, "SUM_Y");
-	const double sxy = GetParameter(data, "SUM_XY");
-	const double sx2 = GetParameter(data, "SUM_X2");
-	double result = sx * sy - n * sxy;
+    const int n = data.size();
+    const double sx = GetParameter(data, "SUM_X");
+    const double sy = GetParameter(data, "SUM_Y");
+    const double sxy = GetParameter(data, "SUM_XY");
+    const double sx2 = GetParameter(data, "SUM_X2");
+    double result = sx * sy - n * sxy;
     result /= (pow(sx, 2) - n * sx2);
     return result;
 }
 
 double Approximator::GetB(const vector<point> &data)
 {
-	const int n = data.size();
-	const double sx = GetParameter(data, "SUM_X");
-	const double sy = GetParameter(data, "SUM_Y");
-	const double sxy = GetParameter(data, "SUM_XY");
-	const  double sx2 = GetParameter(data, "SUM_X2");
-	double result = sx * sxy - sy * sx2;
+    const int n = data.size();
+    const double sx = GetParameter(data, "SUM_X");
+    const double sy = GetParameter(data, "SUM_Y");
+    const double sxy = GetParameter(data, "SUM_XY");
+    const  double sx2 = GetParameter(data, "SUM_X2");
+    double result = sx * sxy - sy * sx2;
     result /= (pow(sx, 2) - n * sx2);
     return result;
 }
@@ -84,8 +84,8 @@ double Approximator::GetB(const vector<point> &data)
 double Approximator::Delta(const vector<point> &data1, const vector<point> &data2)
 {
     double result = 0;
-	const int n = data1.size();
-    for (int index = 0;index < n;index++)
+    const int n = data1.size();
+    for (int index = 0; index < n; index++)
     {
         if (data1[index].y != 0)
         {
@@ -99,9 +99,9 @@ double Approximator::Delta(const vector<point> &data1, const vector<point> &data
 double Approximator::Sigma(const vector<point> &data)
 {
     double result = 0;
-	const int n = data.size();
-	const double a = GetA(data);
-	const double b = GetB(data);
+    const int n = data.size();
+    const double a = GetA(data);
+    const double b = GetB(data);
     for (const auto& index : data)
     {
         result += pow(index.y - b - a * index.x, 2);
@@ -114,12 +114,12 @@ double Approximator::Sigma(const vector<point> &data)
 double Approximator::PolynomSigma(const vector<point> &data, const vector<double> &mbx, signed char n0)
 {
     double result = 0;
-	const int n = data.size();
+    const int n = data.size();
     for (const auto& index : data)
     {
         double r = 0;
-		const signed char sign = n0 >= 0 ? 1 : -1;
-        for (signed char idx = sign;idx != n0;idx += sign)
+        const signed char sign = n0 >= 0 ? 1 : -1;
+        for (signed char idx = sign; idx != n0; idx += sign)
         {
             r += mbx[abs(idx)] * pow(index.x, idx);
         }
@@ -133,7 +133,7 @@ double Approximator::PolynomSigma(const vector<point> &data, const vector<double
 
 double Approximator::Correlation(const vector<point> &data)
 {
-	double result = pow(GetParameter(data, "SIGMA_XY"), 2);
+    double result = pow(GetParameter(data, "SIGMA_XY"), 2);
     result /= GetParameter(data, "SIGMA_X");
     result /= GetParameter(data, "SIGMA_Y");
     return result;
@@ -141,8 +141,8 @@ double Approximator::Correlation(const vector<point> &data)
 
 double Approximator::CorrelationRatio(const vector<point> &linear_data, const vector<point> &dst_data)
 {
-	const int n = dst_data.size();
-	const double sry = GetParameter(dst_data, "AV_Y");
+    const int n = dst_data.size();
+    const double sry = GetParameter(dst_data, "AV_Y");
     double sigma2 = 0;
     double lambda2 = 0;
     for (const auto& index : dst_data)
@@ -160,31 +160,31 @@ double Approximator::CorrelationRatio(const vector<point> &linear_data, const ve
 
 bool Approximator::Zeidel(const multi_array<double, 2> &a, const vector<double> &b, vector<double> &x, unsigned char n)
 {
-	const double e = 0.0001;
-	unsigned char j;
-	double m;
-	int iCount = 0;
-	do
-	{
-		m = 0;
-		for (unsigned char i = 0;i < n;i++)
-		{
-			double s1 = 0;
-			double s2 = 0;
-			for (j = 0;j < i;j++) s1 += a[i][j] * x[j];
-			for (j = i;j < n;j++) s2 += a[i][j] * x[j];
-			const double v = x[i];
+    const double e = 0.0001;
+    unsigned char j;
+    double m;
+    int iCount = 0;
+    do
+    {
+        m = 0;
+        for (unsigned char i = 0; i < n; i++)
+        {
+            double s1 = 0;
+            double s2 = 0;
+            for (j = 0; j < i; j++) s1 += a[i][j] * x[j];
+            for (j = i; j < n; j++) s2 += a[i][j] * x[j];
+            const double v = x[i];
             if (a[i][i] != 0)
             {
                 x[i] -= ((double)1 / a[i][i]) * (s1 + s2 - b[i]);
             }
-			if (fabs(v - x[i]) > m) m = fabs(v - x[i]);
-		}
-		iCount++;
-		if (iCount > 1000000) return false;
-	}
-	while (m >= e);
-	return true;
+            if (fabs(v - x[i]) > m) m = fabs(v - x[i]);
+        }
+        iCount++;
+        if (iCount > 1000000) return false;
+    }
+    while (m >= e);
+    return true;
 }
 
 bool Approximator::GetPolynom(const vector<point> &data, vector<double> &mbx, signed char n)
@@ -193,29 +193,29 @@ bool Approximator::GetPolynom(const vector<point> &data, vector<double> &mbx, si
     sy.resize(abs(n), 0);
     vector<double> sx;
     sx.resize(2 * abs(n) - 1, 0);
-	multi_array<double, 2> a(extents[n][n]);
-	mbx.clear();
+    multi_array<double, 2> a(extents[n][n]);
+    mbx.clear();
     mbx.resize(abs(n), 0);
     const signed char sign = n >= 0 ? 1 : -1;
-    for (signed char index = 0;index != 2 * n - sign;index += sign)
+    for (signed char index = 0; index != 2 * n - sign; index += sign)
     {
         for (const auto& idx : data)
         {
             sx[abs(index)] += pow(idx.x, index);
         }
     }
-    for (signed char index = 0;index != n;index += sign)
+    for (signed char index = 0; index != n; index += sign)
     {
         for (const auto& idx : data)
         {
             sy[abs(index)] += idx.y * pow(idx.x, index);
         }
     }
-    for (signed char i = 0;i < abs(n);i++)
+    for (signed char i = 0; i < abs(n); i++)
     {
-        for (signed char j = 0;j < abs(n);j++)
+        for (signed char j = 0; j < abs(n); j++)
         {
-			a[i][j] = sx[i+j];           
+            a[i][j] = sx[i+j];
         }
     }
     return Zeidel(a, sy, mbx, abs(n));

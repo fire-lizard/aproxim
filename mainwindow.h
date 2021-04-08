@@ -15,7 +15,7 @@
 
 namespace Ui
 {
-    class MainWindowClass;
+class MainWindowClass;
 }
 
 class MainWindow : public QMainWindow
@@ -35,13 +35,13 @@ private:
     vector<double> _data_x;
     vector<double> _data_y;
     vector<double> _data_y1;
-	int _chartType{};
+    int _chartType{};
 
 private slots:
     void on_data_table_cellChanged(int row, int column) const;
     void on_data_table_cellActivated(int row, int column) const;
     void approximateClick();
-	void optionsClick();
+    void optionsClick();
     void calculatePointClick();
     void integralClick() const;
     void differentialClick() const;
@@ -50,7 +50,7 @@ private slots:
     void newClick() const;
     void aboutClick();
     void quitClick();
-	void findModelClick() const;
+    void findModelClick() const;
     void generateClick();
 };
 

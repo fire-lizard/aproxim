@@ -10,7 +10,7 @@
 #include "common.h"
 using namespace std;
 
-class DataAnalysis{
+class DataAnalysis {
 public:
     static double LagrangeI(const vector<point> &data, double t);
     static double LagrangeD(const vector<point> &data, double t);

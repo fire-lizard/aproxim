@@ -22,62 +22,62 @@ QString osVersion()
 QList<QVariantList> XLS_Table::openXLS(QString name)
 {
     //Создаем объект Excel.Application
-	QAxObject * excel = new QAxObject( "Excel.Application", nullptr );
-	//Выбрасываем исключение, если объект application_ невалидный
+    QAxObject * excel = new QAxObject( "Excel.Application", nullptr );
+    //Выбрасываем исключение, если объект application_ невалидный
     //if( !excel ) throw std::exception( "Excel.Application" );
-	//После этого Excel перестает выбрасывать предупреждения
-	excel->dynamicCall( "SetDisplayAlerts", QVariant( false ) );
-	//Создаем объект Workbooks (коллекция книг)
-	QAxObject * workbooks = excel->querySubObject( "Workbooks" );
-	//Выбрасываем исключение, если объект workbooks невалидный
+    //После этого Excel перестает выбрасывать предупреждения
+    excel->dynamicCall( "SetDisplayAlerts", QVariant( false ) );
+    //Создаем объект Workbooks (коллекция книг)
+    QAxObject * workbooks = excel->querySubObject( "Workbooks" );
+    //Выбрасываем исключение, если объект workbooks невалидный
     //if( !workbooks ) throw std::exception( "Application.Workbooks" );
 
-	QAxObject* workbook = workbooks->querySubObject( "Open(const QString&)", QString(name.replace('/', '\\')) );
-	//Получаем доступ к активному листу
-	QAxObject * worksheets = workbook->querySubObject( "Sheets" );
-	const int xlWorksheet =-4167;
-	const int count = worksheets->property("Count").toInt();
+    QAxObject* workbook = workbooks->querySubObject( "Open(const QString&)", QString(name.replace('/', '\\')) );
+    //Получаем доступ к активному листу
+    QAxObject * worksheets = workbook->querySubObject( "Sheets" );
+    const int xlWorksheet =-4167;
+    const int count = worksheets->property("Count").toInt();
     QAxObject * worksheet = nullptr;
-	for (int index = 1; index <= count; index++)
-	{
-		worksheet = worksheets->querySubObject( "Item(QVariant)", QVariant(index) );
-		//Выбрасываем исключение, если объект worksheet невалидный
+    for (int index = 1; index <= count; index++)
+    {
+        worksheet = worksheets->querySubObject( "Item(QVariant)", QVariant(index) );
+        //Выбрасываем исключение, если объект worksheet невалидный
         //if( !worksheet ) throw std::exception( "Workbook.ActiveSheet" );
-		if (worksheet->property("Type").toInt() == xlWorksheet)
-		{
-			break;
-		}
-	}
+        if (worksheet->property("Type").toInt() == xlWorksheet)
+        {
+            break;
+        }
+    }
 
-	QList<QVariantList> result = getRowValues(worksheet);
+    QList<QVariantList> result = getRowValues(worksheet);
 
-	workbook->dynamicCall("Close()");
-	excel->dynamicCall("Quit()");
-	delete excel;
+    workbook->dynamicCall("Close()");
+    excel->dynamicCall("Quit()");
+    delete excel;
     return result;
 }
 
 void XLS_Table::saveXLS(QString name, vector<point> &data)
 {
     //Создаем объект Excel.Application
-	QAxObject * excel = new QAxObject( "Excel.Application", nullptr );
-	//Выбрасываем исключение, если объект application_ невалидный
+    QAxObject * excel = new QAxObject( "Excel.Application", nullptr );
+    //Выбрасываем исключение, если объект application_ невалидный
     //if( !excel ) throw std::exception( "Excel.Application" );
-	//Устанавливаем количество листов на новой книге равным 1
-	excel->dynamicCall( "SetSheetsInNewWorkbook(int)", QVariant( 1 ) );
-	//После этого Excel перестает выбрасывать предупреждения
-	excel->dynamicCall( "SetDisplayAlerts", QVariant( false ) );
-	//Создаем объект Workbooks (коллекция книг)
-	QAxObject * workbooks = excel->querySubObject( "Workbooks" );
-	//Выбрасываем исключение, если объект workbooks невалидный
+    //Устанавливаем количество листов на новой книге равным 1
+    excel->dynamicCall( "SetSheetsInNewWorkbook(int)", QVariant( 1 ) );
+    //После этого Excel перестает выбрасывать предупреждения
+    excel->dynamicCall( "SetDisplayAlerts", QVariant( false ) );
+    //Создаем объект Workbooks (коллекция книг)
+    QAxObject * workbooks = excel->querySubObject( "Workbooks" );
+    //Выбрасываем исключение, если объект workbooks невалидный
     //if( !workbooks ) throw std::exception( "Application.Workbooks" );
-	//Добавляем новую книгу
-	QAxObject * workbook = workbooks->querySubObject( "Add()" );
-	//Выбрасываем исключение, если объект workbook невалидный
+    //Добавляем новую книгу
+    QAxObject * workbook = workbooks->querySubObject( "Add()" );
+    //Выбрасываем исключение, если объект workbook невалидный
     //if( !workbook ) throw std::exception( "Workbooks.Add()" );
-	//Получаем доступ к активному листу
-	QAxObject * worksheet = workbook->querySubObject( "ActiveSheet" );
-	//Выбрасываем исключение, если объект worksheet невалидный
+    //Получаем доступ к активному листу
+    QAxObject * worksheet = workbook->querySubObject( "ActiveSheet" );
+    //Выбрасываем исключение, если объект worksheet невалидный
     //if( !worksheet ) throw std::exception( "Workbook.ActiveSheet" );
 
     setRowValues(worksheet, data);
@@ -85,8 +85,8 @@ void XLS_Table::saveXLS(QString name, vector<point> &data)
     createChart(excel, workbook, worksheet, data);
 
     workbook->dynamicCall( "SaveAs(QVariant)", QVariant(name.replace('/', '\\')) );
-	workbook->dynamicCall("Close()");
-	excel->dynamicCall("Quit()");
+    workbook->dynamicCall("Close()");
+    excel->dynamicCall("Quit()");
     delete excel;
 }
 
@@ -140,25 +140,25 @@ QList<QVariantList> XLS_Table::getRowValues( QAxObject * worksheet )
 {
     QList<QVariantList> data;	//Data list from excel, each QVariantList is worksheet row
     bool isEmpty;	//when all the cells of row are empty, it means that file is at end (of course, it maybe not right for different excel files. it's just criteria to calculate somehow row count for my file)
-	int row = 0;
+    int row = 0;
 
-	do
-	{
-		QVariantList dataRow;
-		isEmpty = true;
-		row++;
-		for (int column = 1; column <= 2; column++)
-		{
+    do
+    {
+        QVariantList dataRow;
+        isEmpty = true;
+        row++;
+        for (int column = 1; column <= 2; column++)
+        {
             QAxObject* cell = worksheet->querySubObject("Cells( int, int )", row, column);
-			QString value = cell->property("Value").toString();
-			if (!value.isEmpty() && isEmpty)
-			{
-				isEmpty = false;
-			}
-			dataRow.append(value);
-		}
-		data.append(dataRow);
-	}
+            QString value = cell->property("Value").toString();
+            if (!value.isEmpty() && isEmpty)
+            {
+                isEmpty = false;
+            }
+            dataRow.append(value);
+        }
+        data.append(dataRow);
+    }
     while (!isEmpty);
     return data;
 }
@@ -166,8 +166,8 @@ QList<QVariantList> XLS_Table::getRowValues( QAxObject * worksheet )
 void XLS_Table::setRowValues( QAxObject * worksheet, vector<point> data )
 {
     const int count = data.size();
-	for (int index = 0; index < count; index++)
-	{
+    for (int index = 0; index < count; index++)
+    {
         worksheet->querySubObject( "Cells( int, int )", index + 1, 1 )->dynamicCall("SetValue", QVariant(data[index].x));
         worksheet->querySubObject( "Cells( int, int )", index + 1, 2 )->dynamicCall("SetValue", QVariant(data[index].y));
     }

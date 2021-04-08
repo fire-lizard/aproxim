@@ -7,7 +7,7 @@
 #include "mainwindow.h"
 
 namespace Ui {
-    class options;
+class options;
 }
 
 class options : public QDialog {
@@ -16,10 +16,10 @@ class options : public QDialog {
 public:
     explicit options(QWidget *parent = nullptr);
     virtual ~options();
-	int chartType() const;
+    int chartType() const;
 
 protected:
-	void changeEvent(QEvent *e) override;
+    void changeEvent(QEvent *e) override;
 
 private:
     Ui::options *m_ui;

@@ -80,7 +80,7 @@ double Func19(vector<double> &mbx, double x, signed char n0)
 {
     double r = 0;
     const signed char sign = n0 >= 0 ? 1 : -1;
-    for (signed char index = sign;index != n0 + sign;index += sign)
+    for (signed char index = sign; index != n0 + sign; index += sign)
     {
         r += mbx[(signed char)abs((float)index)] * pow(x, index);
     }

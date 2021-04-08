@@ -9,14 +9,14 @@ DataAnalysis::~DataAnalysis() = default;
 double DataAnalysis::Lagrange(const vector<point> &data, double t, double &p)
 {
     vector <double> x;
-	vector <double> f;
-	for (const auto& index : data)
-	{
+    vector <double> f;
+    for (const auto& index : data)
+    {
         x.push_back(index.x);
         f.push_back(index.y);
-	}
-	int i;
-	int n = data.size();
+    }
+    int i;
+    int n = data.size();
     vector <double> df(n + 1);
 
     n = n-1;
@@ -33,14 +33,14 @@ double DataAnalysis::Lagrange(const vector<point> &data, double t, double &p)
         }
     }
     p = f[0];
-	return df[0];
+    return df[0];
 }
 
 
 double DataAnalysis::Simpson(double a, double b, const vector<point> &data)
 {
-	const double epsilon = 0.0001;
-	double x;
+    const double epsilon = 0.0001;
+    double x;
 
     double s2 = 1;
     double h = b - a;
@@ -67,13 +67,13 @@ double DataAnalysis::Simpson(double a, double b, const vector<point> &data)
 
 double DataAnalysis::LagrangeI(const vector<point> &data, double t)
 {
-	double res;
-	Lagrange(data, t, res);
-	return res;
+    double res;
+    Lagrange(data, t, res);
+    return res;
 }
 
 double DataAnalysis::LagrangeD(const vector<point> &data, double t)
 {
-	double p;
-	return Lagrange(data, t, p);
+    double p;
+    return Lagrange(data, t, p);
 }

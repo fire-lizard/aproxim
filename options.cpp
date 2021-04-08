@@ -6,12 +6,12 @@ options::options(QWidget *parent) :
     m_ui(new Ui::options)
 {
     m_ui->setupUi(this);
-    for (int index = 0;index < QStyleFactory::keys().size();index++)
+    for (int index = 0; index < QStyleFactory::keys().size(); index++)
     {
         m_ui->selected_style->addItem(QStyleFactory::keys()[index]);
     }
-	m_ui->selected_plot->addItem("Cartesian");
-	m_ui->selected_plot->addItem("Polar");
+    m_ui->selected_plot->addItem("Cartesian");
+    m_ui->selected_plot->addItem("Polar");
 }
 
 options::~options()
@@ -21,7 +21,7 @@ options::~options()
 
 int options::chartType() const
 {
-	return m_ui->selected_plot->currentIndex();
+    return m_ui->selected_plot->currentIndex();
 }
 
 void options::changeEvent(QEvent *e)
@@ -37,5 +37,5 @@ void options::changeEvent(QEvent *e)
 
 void options::on_buttonBox_accepted() const
 {
-	QApplication::setStyle(m_ui->selected_style->itemText(m_ui->selected_style->currentIndex()));
+    QApplication::setStyle(m_ui->selected_style->itemText(m_ui->selected_style->currentIndex()));
 }
