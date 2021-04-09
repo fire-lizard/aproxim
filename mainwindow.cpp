@@ -764,10 +764,9 @@ void MainWindow::findModelClick() const
 void MainWindow::generateClick()
 {
     const unsigned char f = ui->selected_function->currentIndex() + 1;
-    int cnt = 100;
-    for (int idx = 1; idx <= cnt; idx++)
+    for (int idx = 1; idx <= 100; idx++)
     {
-        const double x1 = f == 19 ? idx - (cnt / 2) : idx;
+        const double x1 = idx;
         ui->data_table->setItem(idx - 1, 0, new QTableWidgetItem(QString::number(x1)));
         func deps[17] = {Func1,Func2,Func3,Func4,Func5,Func6,Func7,Func8,
                          Func9,Func10,Func11,Func12,Func13,Func14,Func15,Func16,Func17
@@ -778,9 +777,9 @@ void MainWindow::generateClick()
         const double b1 = 0.1;
         const signed char n0 = 3;
         vector<double> mbx;
-        mbx.push_back(-7);
-        mbx.push_back(4);
         mbx.push_back(-10);
+        mbx.push_back(4);
+        mbx.push_back(-7);
         mbx.push_back(1);
         const double b2 = 0.1;
         if (ui->selected_function->currentIndex() <= 0)
@@ -816,4 +815,35 @@ void MainWindow::generateClick()
         ui->data_table->setItem(idx - 1, 3, new QTableWidgetItem());
     }
     ui->tabWidget->setCurrentIndex(1);
+}
+
+void MainWindow::saveImageClick()
+{
+    QFileDialog sdialog(this);
+    QStringList filters;
+    QList<QByteArray> sifs = QImageReader::supportedImageFormats();
+    for (int index = 0; index < sifs.size(); index++)
+    {
+        if (sifs[index] == "bmp" || sifs[index] == "jpg" || sifs[index] == "png" || sifs[index] == "tif")
+        {
+            filters << sifs[index] + " files (*." + sifs[index] + ")";
+        }
+    }
+    sdialog.setNameFilters(filters);
+    sdialog.setAcceptMode(QFileDialog::AcceptSave);
+    if (sdialog.exec() == QFileDialog::Accepted)
+    {
+        QString filename = sdialog.selectedFiles()[0];
+        const QString selected_filter = sdialog.selectedNameFilter();
+        QPixmap pm = ui->data_plot->grab();
+        QString format = selected_filter.split(' ')[0];
+        if (!filename.endsWith("." + format))
+        {
+            filename = filename + "." + format;
+        }
+        if (!pm.save(filename, format.toLatin1().data()))
+        {
+            QMessageBox::about(this, "Error", "Save unsuccessful");
+        }
+    }
 }

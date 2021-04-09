@@ -52,6 +52,7 @@ private slots:
     void quitClick();
     void findModelClick() const;
     void generateClick();
+    void saveImageClick();
 };
 
 #endif // MAINWINDOW_H

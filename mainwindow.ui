@@ -388,6 +388,7 @@
    <addaction name="actionNew"/>
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
+   <addaction name="actionSaveImage"/>
    <addaction name="actionApproximation"/>
    <addaction name="actionCalculatePoint"/>
    <addaction name="actionDifferential"/>
@@ -540,6 +541,18 @@
    </property>
    <property name="toolTip">
     <string>Generate sample data</string>
+   </property>
+  </action>
+  <action name="actionSaveImage">
+   <property name="icon">
+    <iconset resource="aproxim.qrc">
+     <normaloff>:/new/prefix1/images/save_image.png</normaloff>:/new/prefix1/images/save_image.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save image</string>
+   </property>
+   <property name="toolTip">
+    <string>Save image</string>
    </property>
   </action>
  </widget>
@@ -749,6 +762,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSaveImage</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>saveImageClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>aboutClick()</slot>
@@ -756,6 +785,7 @@
   <slot>newClick()</slot>
   <slot>openClick()</slot>
   <slot>saveClick()</slot>
+  <slot>saveImageClick()</slot>
   <slot>approximateClick()</slot>
   <slot>calculatePointClick()</slot>
   <slot>findModelClick()</slot>
