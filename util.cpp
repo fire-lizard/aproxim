@@ -237,9 +237,9 @@ int CalculateData(vector<point> &src_data, vector<point> &dst_data, double &a1, 
     }
     if (f == 20)
     {
-        a = Approximator_2::GetA(linear_data_2);
-        b = Approximator_2::GetB(linear_data_2);
-        b2 = Approximator_2::GetB2(linear_data_2);
+        a = Approximator2::GetA(linear_data_2);
+        b = Approximator2::GetB(linear_data_2);
+        b2 = Approximator2::GetB2(linear_data_2);
     }
     CalculateParameters(a, b, a1, b1, f);
     func deps[17] = {Func1,Func2,Func3,Func4,Func5,Func6,Func7,Func8,
@@ -305,8 +305,8 @@ void CalculateCoefficients(const vector<point> &src_data, const vector<point> &d
     {
         LinearData(src_data, linear_data_2, n0, f);
         delta = Approximator::Delta(src_data, dst_data);
-        sigma = Approximator_2::Sigma(linear_data_2);
-        r = Approximator_2::Correlation(linear_data_2);
+        sigma = Approximator2::Sigma(linear_data_2);
+        r = Approximator2::Correlation(linear_data_2);
     }
 }
 

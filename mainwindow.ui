@@ -539,7 +539,7 @@
     <string>Generate</string>
    </property>
    <property name="toolTip">
-    <string>Generate data</string>
+    <string>Generate sample data</string>
    </property>
   </action>
  </widget>

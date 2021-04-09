@@ -51,8 +51,8 @@ if(ANDROID)
     common.h
     approximator.cpp
     approximator.h
-    approximator_2.cpp
-    approximator_2.h
+    approximator2.cpp
+    approximator2.h
     dataanalysis.cpp
     dataanalysis.h
     functions.cpp
@@ -75,8 +75,8 @@ elseif(APPLE)
     common.h
     approximator.cpp
     approximator.h
-    approximator_2.cpp
-    approximator_2.h
+    approximator2.cpp
+    approximator2.h
     dataanalysis.cpp
     dataanalysis.h
     functions.cpp
@@ -100,8 +100,8 @@ else()
     common.h
     approximator.cpp
     approximator.h
-    approximator_2.cpp
-    approximator_2.h
+    approximator2.cpp
+    approximator2.h
     dataanalysis.cpp
     dataanalysis.h
     functions.cpp

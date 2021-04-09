@@ -8,7 +8,7 @@
 #include "common.h"
 #include "functions.h"
 #include "approximator.h"
-#include "approximator_2.h"
+#include "approximator2.h"
 
 void LinearParameters(double x, double y, double &x1, double &y1, unsigned char func, signed char n0);
 void LinearData(const vector<point> &src_data, vector<point> &linear_data, signed char n0, unsigned char f);

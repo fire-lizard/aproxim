@@ -1,11 +1,11 @@
 //---------------------------------------------------------------------------
 
 
-#include "approximator_2.h"
+#include "approximator2.h"
 
 //---------------------------------------------------------------------------
 
-double Approximator_2::GetParameter(const vector<point3d> &data, const string &operation)
+double Approximator2::GetParameter(const vector<point3d> &data, const string &operation)
 {
     double result = 0;
     const int n = data.size();
@@ -94,7 +94,7 @@ double Approximator_2::GetParameter(const vector<point3d> &data, const string &o
     return result;
 }
 
-double Approximator_2::GetA(const vector<point3d> &data)
+double Approximator2::GetA(const vector<point3d> &data)
 {
     const double sx1 = GetParameter(data, "AV_X1");
     const double sx2 = GetParameter(data, "AV_X2");
@@ -104,7 +104,7 @@ double Approximator_2::GetA(const vector<point3d> &data)
     return sy - b2 * sx1 - b * sx2;
 }
 
-double Approximator_2::GetB(const vector<point3d> &data)
+double Approximator2::GetB(const vector<point3d> &data)
 {
     const double sx1x2 = GetParameter(data, "SUM_X1X2");
     const double sx1y = GetParameter(data, "SUM_X1Y");
@@ -116,7 +116,7 @@ double Approximator_2::GetB(const vector<point3d> &data)
     return result;
 }
 
-double Approximator_2::GetB2(const vector<point3d> &data)
+double Approximator2::GetB2(const vector<point3d> &data)
 {
     const double sx1x2 = GetParameter(data, "SUM_X1X2");
     const double sx1y = GetParameter(data, "SUM_X1Y");
@@ -128,7 +128,7 @@ double Approximator_2::GetB2(const vector<point3d> &data)
     return result;
 }
 
-double Approximator_2::Delta(const vector<point3d> &data1, const vector<point3d> &data2)
+double Approximator2::Delta(const vector<point3d> &data1, const vector<point3d> &data2)
 {
     double result = 0;
     const int n = data1.size();
@@ -143,7 +143,7 @@ double Approximator_2::Delta(const vector<point3d> &data1, const vector<point3d>
     return result;
 }
 
-double Approximator_2::Sigma(const vector<point3d> &data)
+double Approximator2::Sigma(const vector<point3d> &data)
 {
     double result = 0;
     const int n = data.size();
@@ -159,7 +159,7 @@ double Approximator_2::Sigma(const vector<point3d> &data)
     return result;
 }
 
-double Approximator_2::Correlation(const vector<point3d> &data)
+double Approximator2::Correlation(const vector<point3d> &data)
 {
     double result = pow(GetParameter(data, "SIGMA_XY"), 2);
     result /= GetParameter(data, "SIGMA_X");

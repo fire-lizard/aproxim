@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
-#ifndef Approximator_2H
-#define Approximator_2H
+#ifndef Approximator2H
+#define Approximator2H
 //---------------------------------------------------------------------------
 
 #include <vector>
@@ -9,7 +9,7 @@
 using namespace std;
 using namespace boost;
 
-class Approximator_2 : public Approximator
+class Approximator2 : public Approximator
 {
 public:
     static double GetA(const vector<point3d> &data);
