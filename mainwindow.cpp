@@ -569,7 +569,7 @@ void MainWindow::approximateClick()
         {
             d = 100;
         }
-        d = floor(d * precision);
+        d = floor(abs(d) * precision);
         d /= precision;
         ui->data_table->setItem(index_diff, 3, new QTableWidgetItem(QString::number(d).replace(',', '.')));
         if (d >= 100)
@@ -764,9 +764,10 @@ void MainWindow::findModelClick() const
 void MainWindow::generateClick()
 {
     const unsigned char f = ui->selected_function->currentIndex() + 1;
-    for (int idx = 1; idx <= 100; idx++)
+    int cnt = 100;
+    for (int idx = 1; idx <= cnt; idx++)
     {
-        const double x1 = idx;
+        const double x1 = f == 19 ? idx - (cnt / 2) : idx;
         ui->data_table->setItem(idx - 1, 0, new QTableWidgetItem(QString::number(x1)));
         func deps[17] = {Func1,Func2,Func3,Func4,Func5,Func6,Func7,Func8,
                          Func9,Func10,Func11,Func12,Func13,Func14,Func15,Func16,Func17
@@ -777,10 +778,10 @@ void MainWindow::generateClick()
         const double b1 = 0.1;
         const signed char n0 = 3;
         vector<double> mbx;
-        mbx.push_back(0.4);
-        mbx.push_back(0.3);
-        mbx.push_back(0.2);
-        mbx.push_back(0.1);
+        mbx.push_back(-7);
+        mbx.push_back(4);
+        mbx.push_back(-10);
+        mbx.push_back(1);
         const double b2 = 0.1;
         if (ui->selected_function->currentIndex() <= 0)
         {
