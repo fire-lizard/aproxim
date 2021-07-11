@@ -42,6 +42,7 @@ Source: "release\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\opengl32sw.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt5DataVisualization.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\Qt5Svg.dll"; DestDir: "{app}"; Flags: ignoreversion

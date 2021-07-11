@@ -39,8 +39,7 @@ if(WIN32)
     find_package(Qt5 COMPONENTS AxContainer REQUIRED)
 endif()
 
-if(ANDROID)
-  add_library(aproxim SHARED
+set(PROJECT_SOURCES
     main.cpp
     mainwindow.cpp
     mainwindow.h
@@ -57,60 +56,27 @@ if(ANDROID)
     dataanalysis.h
     functions.cpp
     functions.h
+    functions2.cpp
+    functions2.h
     util.cpp
     util.h
     xls_table.cpp
     xls_table.h
     aproxim.qrc
+)
+
+if(ANDROID)
+  add_library(aproxim SHARED
+    ${PROJECT_SOURCES}
   )
 elseif(APPLE)
   add_executable(aproxim MACOSX_BUNDLE
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    options.cpp
-    options.h
-    options.ui
-    common.h
-    approximator.cpp
-    approximator.h
-    approximator2.cpp
-    approximator2.h
-    dataanalysis.cpp
-    dataanalysis.h
-    functions.cpp
-    functions.h
-    util.cpp
-    util.h
-    xls_table.cpp
-    xls_table.h
-    aproxim.qrc
+    ${PROJECT_SOURCES}
     ${APP_ICON_MACOSX}
   )
 else()
   add_executable(aproxim
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    options.cpp
-    options.h
-    options.ui
-    common.h
-    approximator.cpp
-    approximator.h
-    approximator2.cpp
-    approximator2.h
-    dataanalysis.cpp
-    dataanalysis.h
-    functions.cpp
-    functions.h
-    util.cpp
-    util.h
-    xls_table.cpp
-    xls_table.h
-    aproxim.qrc
+    ${PROJECT_SOURCES}
     aproxim.rc
   )
 endif()

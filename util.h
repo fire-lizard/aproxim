@@ -7,6 +7,7 @@
 
 #include "common.h"
 #include "functions.h"
+#include "functions2.h"
 #include "approximator.h"
 #include "approximator2.h"
 

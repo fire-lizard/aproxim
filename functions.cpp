@@ -70,7 +70,7 @@ double Func16(double a, double b, double x)
 }
 double Func17(double a, double b, double x)
 {
-    return b * pow(10,a / x);
+    return b * pow(10, a / x);
 }
 double Func18(double a, double b, double x, signed char n0)
 {

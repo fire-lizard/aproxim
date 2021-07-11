@@ -29,13 +29,13 @@ public:
 private:
     Ui::MainWindowClass *ui;
 
-    double _a1{}, _b1{}, _b2{};
+    double _a1, _b1, _b2;
     vector<double> _mbx;
-    signed char _n0{};
+    signed char _n0;
     vector<double> _data_x;
     vector<double> _data_y;
     vector<double> _data_y1;
-    int _chartType{};
+    int _chartType;
 
 private slots:
     void on_data_table_cellChanged(int row, int column) const;
