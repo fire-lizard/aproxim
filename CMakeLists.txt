@@ -75,7 +75,7 @@ elseif(APPLE)
     ${APP_ICON_MACOSX}
   )
 elseif(WIN32)
-  add_executable(aproxim MACOSX_BUNDLE
+  add_executable(aproxim
     ${PROJECT_SOURCES}
     aproxim.rc
   )
