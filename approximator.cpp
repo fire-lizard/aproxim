@@ -87,7 +87,7 @@ double Approximator::Delta(const vector<point> &data1, const vector<point> &data
     const int n = data1.size();
     for (int index = 0; index < n; index++)
     {
-        if (data1[index].y != 0)
+        if (fpclassify(data1[index].y) != FP_ZERO)
         {
             result += (100 * abs(data1[index].y - data2[index].y)) / data1[index].y;
         }
@@ -160,7 +160,7 @@ double Approximator::CorrelationRatio(const vector<point> &linear_data, const ve
 
 bool Approximator::Zeidel(const multi_array<double, 2> &a, const vector<double> &b, vector<double> &x, unsigned char n)
 {
-    const double e = 0.0001;
+    constexpr double e = 0.0001;
     unsigned char j;
     double m;
     int iCount = 0;
@@ -174,7 +174,7 @@ bool Approximator::Zeidel(const multi_array<double, 2> &a, const vector<double> 
             for (j = 0; j < i; j++) s1 += a[i][j] * x[j];
             for (j = i; j < n; j++) s2 += a[i][j] * x[j];
             const double v = x[i];
-            if (a[i][i] != 0)
+            if (fpclassify(a[i][i]) != FP_ZERO)
             {
                 x[i] -= ((double)1 / a[i][i]) * (s1 + s2 - b[i]);
             }

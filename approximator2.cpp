@@ -134,7 +134,7 @@ double Approximator2::Delta(const vector<point3d> &data1, const vector<point3d> 
     const int n = data1.size();
     for (int index = 0; index < n; index++)
     {
-        if (fpclassify(data1[index].z) == FP_ZERO)
+        if (fpclassify(data1[index].z) != FP_ZERO)
         {
             result += 100 * abs(data1[index].z - data2[index].z) / data1[index].z;
         }
