@@ -7,7 +7,6 @@
 #include <vector>
 #include "approximator.h"
 using namespace std;
-using namespace boost;
 
 class Approximator2 : public Approximator
 {

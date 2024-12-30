@@ -19,7 +19,7 @@ endif()
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
-# They need to be set before the find_package(Qt5 ...) call.
+# They need to be set before the find_package(Qt6 ...) call.
 
 #if(ANDROID)
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
@@ -30,13 +30,13 @@ endif()
 #    endif()
 #endif()
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt5 COMPONENTS Charts REQUIRED)
-find_package(Qt5 COMPONENTS DataVisualization REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Charts REQUIRED)
+find_package(Qt6 COMPONENTS DataVisualization REQUIRED)
 
 if(WIN32)
-    find_package(Qt5 COMPONENTS AxBase REQUIRED)
-    find_package(Qt5 COMPONENTS AxContainer REQUIRED)
+#    find_package(Qt6 COMPONENTS AxBase REQUIRED)
+#    find_package(Qt6 COMPONENTS AxContainer REQUIRED)
 endif()
 
 set(PROJECT_SOURCES
@@ -86,7 +86,8 @@ else()
 endif()
 
 if(WIN32)
-    target_link_libraries(aproxim PRIVATE Qt5::Widgets Qt5::Charts Qt5::DataVisualization Qt5::AxBase Qt5::AxContainer)
+    #target_link_libraries(aproxim PRIVATE Qt6::Widgets Qt6::Charts Qt6::DataVisualization Qt6::AxBase Qt6::AxContainer)
+    target_link_libraries(aproxim PRIVATE Qt6::Widgets Qt6::Charts Qt6::DataVisualization)
 else()
-    target_link_libraries(aproxim PRIVATE Qt5::Widgets Qt5::Charts Qt5::DataVisualization)
+    target_link_libraries(aproxim PRIVATE Qt6::Widgets Qt6::Charts Qt6::DataVisualization)
 endif()

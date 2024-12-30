@@ -34,7 +34,7 @@ double Func7(double a, double b, double x)
 }
 double Func8(double a, double b, double x)
 {
-    return b + a * log((double)abs(x)) / log((double)10);
+    return b + a * log(abs(x)) / log(10);
 }
 double Func9(double a, double b, double x)
 {
@@ -76,7 +76,7 @@ double Func18(double a, double b, double x, signed char n0)
 {
     return b + a * pow(x, n0);
 }
-double Func19(vector<double> &mbx, double x, signed char n0)
+double Func19(const vector<double> &mbx, double x, signed char n0)
 {
     double r = 0;
     const signed char sign = n0 >= 0 ? 1 : -1;

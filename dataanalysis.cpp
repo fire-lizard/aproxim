@@ -39,7 +39,7 @@ double DataAnalysis::Lagrange(const vector<point> &data, double t, double &p)
 
 double DataAnalysis::Simpson(double a, double b, const vector<point> &data)
 {
-    const double epsilon = 0.0001;
+    constexpr double epsilon = 0.0001;
     double x;
 
     double s2 = 1;

@@ -97,12 +97,12 @@ void MainWindow::openClick()
             while (!reader->atEnd())
             {
                 if (reader->readNext() == QXmlStreamReader::StartElement &&
-                        (reader->name() == "X" || reader->name() == "Y"))
+                        (reader->name().toString() == "X" || reader->name().toString() == "Y"))
                 {
-                    const int column = reader->name() == "X" ? 0 : 1;
+                    const int column = reader->name().toString() == "X" ? 0 : 1;
                     const QString value = reader->readElementText();
                     ui->data_table->setItem(index, column, new QTableWidgetItem(value));
-                    if (reader->name() == "Y")
+                    if (reader->name().toString() == "Y")
                     {
                         index++;
                     }
@@ -137,7 +137,7 @@ void MainWindow::openClick()
             }
             file.close();
         }
-#ifdef WIN32
+#ifdef WIN32_1
         else if (selected_filter == "Microsoft Excel 2003 files (*.xls)" ||
                  selected_filter == "Microsoft Excel files (*.xlsx)")
         {
@@ -321,7 +321,7 @@ void MainWindow::saveClick()
             file.write(json_string.toStdString().c_str(), json_string.length());
             file.close();
         }
-#ifdef WIN32
+#ifdef WIN32_1
         else if (selected_filter == "Microsoft Excel 2003 files (*.xls)" ||
                  selected_filter == "Microsoft Excel files (*.xlsx)")
         {

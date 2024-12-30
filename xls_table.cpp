@@ -17,7 +17,7 @@ QString osVersion()
 #endif
 }
 
-#ifdef WIN32
+#ifdef WIN32_1
 
 QList<QVariantList> XLS_Table::openXLS(QString name)
 {
