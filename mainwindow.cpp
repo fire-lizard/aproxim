@@ -348,7 +348,7 @@ void MainWindow::saveClick()
                 {
                     const double x = strtod(str_x.c_str(), nullptr);
                     const double y = strtod(str_y.c_str(), nullptr);
-                    src_data.push_back(point(x, y));
+                    src_data.emplace_back(point(x, y));
                 }
             }
             while (!str_x.empty() && !str_y.empty());
@@ -367,8 +367,8 @@ void MainWindow::differentialClick() const
     do
     {
         index++;
-        QTableWidgetItem *item_x = ui->data_table->item(index, 0);
-        QTableWidgetItem *item_y = ui->data_table->item(index, 1);
+        const QTableWidgetItem *item_x = ui->data_table->item(index, 0);
+        const QTableWidgetItem *item_y = ui->data_table->item(index, 1);
         if (item_x && item_y)
         {
             str_x = item_x->text().replace(',', '.').toStdString();
@@ -383,7 +383,7 @@ void MainWindow::differentialClick() const
         {
             const double x = strtod(str_x.c_str(), nullptr);
             const double y = strtod(str_y.c_str(), nullptr);
-            src_data.push_back(point(x,y));
+            src_data.emplace_back(x,y);
         }
     }
     while (!str_x.empty() && !str_y.empty());
@@ -403,8 +403,8 @@ void MainWindow::integralClick() const
     do
     {
         index++;
-        QTableWidgetItem *item_x = ui->data_table->item(index, 0);
-        QTableWidgetItem *item_y = ui->data_table->item(index, 1);
+        const QTableWidgetItem *item_x = ui->data_table->item(index, 0);
+        const QTableWidgetItem *item_y = ui->data_table->item(index, 1);
         if (item_x && item_y)
         {
             str_x = item_x->text().replace(',', '.').toStdString();
@@ -419,7 +419,7 @@ void MainWindow::integralClick() const
         {
             const double x = strtod(str_x.c_str(), nullptr);
             const double y = strtod(str_y.c_str(), nullptr);
-            src_data.push_back(point(x, y));
+            src_data.emplace_back(x, y);
         }
     }
     while (!str_x.empty() && !str_y.empty());
@@ -430,10 +430,10 @@ void MainWindow::integralClick() const
     }
 }
 
-void MainWindow::calculatePointClick()
+void MainWindow::calculatePointClick() const
 {
     const unsigned char f = ui->selected_function->currentIndex() + 1;
-    func deps[17] = {Func1,Func2,Func3,Func4,Func5,Func6,Func7,Func8,
+    constexpr func deps[17] = {Func1,Func2,Func3,Func4,Func5,Func6,Func7,Func8,
                      Func9,Func10,Func11,Func12,Func13,Func14,Func15,Func16,Func17
                     };
     double y1 = 0;
@@ -521,7 +521,7 @@ void MainWindow::approximateClick()
         {
             const double x = strtod(str_x.c_str(), nullptr);
             const double y = strtod(str_y.c_str(), nullptr);
-            src_data.push_back(point(x, y));
+            src_data.emplace_back(x, y);
         }
     }
     while (!str_x.empty() && !str_y.empty());
@@ -561,7 +561,7 @@ void MainWindow::approximateClick()
     for (int index_diff = 0; index_diff < src_data.size(); index_diff++)
     {
         double d = 100 * abs(src_data[index_diff].y - dst_data[index_diff].y);
-        if (src_data[index_diff].y != 0)
+        if (fpclassify(src_data[index_diff].y) != FP_ZERO)
         {
             d /= src_data[index_diff].y;
         }
@@ -600,11 +600,11 @@ void MainWindow::approximateClick()
         for (int graphIndex = 0; graphIndex < src_data.size(); graphIndex++)
         {
             double ro = sqrt(pow(src_data[graphIndex].x, 2) + pow(src_data[graphIndex].y, 2));
-            double fi = sqrt(src_data[graphIndex].x == 0 ? M_PI_2 : atan(src_data[graphIndex].y / src_data[graphIndex].x));
+            double fi = sqrt(fpclassify(src_data[graphIndex].x) == FP_ZERO ? M_PI_2 : atan(src_data[graphIndex].y / src_data[graphIndex].x));
             graph_src_data[graphIndex].x = ro;
             graph_src_data[graphIndex].y = fi;
             ro = sqrt(pow(dst_data[graphIndex].x, 2) + pow(dst_data[graphIndex].y, 2));
-            fi = sqrt(dst_data[graphIndex].x == 0 ? M_PI_2 : atan(dst_data[graphIndex].y / dst_data[graphIndex].x));
+            fi = sqrt(fpclassify(dst_data[graphIndex].x) == FP_ZERO ? M_PI_2 : atan(dst_data[graphIndex].y / dst_data[graphIndex].x));
             graph_dst_data[graphIndex].x = ro;
             graph_dst_data[graphIndex].y = fi;
         }
@@ -704,8 +704,8 @@ void MainWindow::findModelClick() const
     do
     {
         index++;
-        QTableWidgetItem *item_x = ui->data_table->item(index, 0);
-        QTableWidgetItem *item_y = ui->data_table->item(index, 1);
+        const QTableWidgetItem *item_x = ui->data_table->item(index, 0);
+        const QTableWidgetItem *item_y = ui->data_table->item(index, 1);
         if (item_x && item_y)
         {
             str_x = item_x->text().replace(',', '.').toStdString();
@@ -720,7 +720,7 @@ void MainWindow::findModelClick() const
         {
             const double x = strtod(str_x.c_str(), nullptr);
             const double y = strtod(str_y.c_str(), nullptr);
-            src_data.push_back(point(x,y));
+            src_data.emplace_back(x,y);
         }
     }
     while (!str_x.empty() && !str_y.empty());
@@ -761,27 +761,27 @@ void MainWindow::findModelClick() const
     this->ui->selected_function->setCurrentIndex(func + 1);
 }
 
-void MainWindow::generateClick()
+void MainWindow::generateClick() const
 {
     const unsigned char f = ui->selected_function->currentIndex() + 1;
     for (int idx = 1; idx <= 100; idx++)
     {
         const double x1 = idx;
         ui->data_table->setItem(idx - 1, 0, new QTableWidgetItem(QString::number(x1)));
-        func deps[17] = {Func1,Func2,Func3,Func4,Func5,Func6,Func7,Func8,
+        constexpr func deps[17] = {Func1,Func2,Func3,Func4,Func5,Func6,Func7,Func8,
                          Func9,Func10,Func11,Func12,Func13,Func14,Func15,Func16,Func17
                         };
         double y1 = 0;
         const double precision = pow((double)10, ui->selected_precision->value());
         const double a1 = f == 7 ? 1.1 : 0.1;
-        const double b1 = 0.1;
+        constexpr double b1 = 0.1;
+        constexpr double b2 = 0.1;
         const signed char n0 = 3;
         vector<double> mbx;
         mbx.push_back(-10);
         mbx.push_back(4);
         mbx.push_back(-7);
         mbx.push_back(1);
-        const double b2 = 0.1;
         if (ui->selected_function->currentIndex() <= 0)
         {
             y1 = deps[0](a1, b1, x1);
@@ -822,11 +822,11 @@ void MainWindow::saveImageClick()
     QFileDialog sdialog(this);
     QStringList filters;
     QList<QByteArray> sifs = QImageReader::supportedImageFormats();
-    for (int index = 0; index < sifs.size(); index++)
+    for (auto& sif : sifs)
     {
-        if (sifs[index] == "bmp" || sifs[index] == "jpg" || sifs[index] == "png" || sifs[index] == "tif")
+        if (sif == "bmp" || sif == "jpg" || sif == "png" || sif == "tif")
         {
-            filters << sifs[index] + " files (*." + sifs[index] + ")";
+            filters << sif + " files (*." + sif + ")";
         }
     }
     sdialog.setNameFilters(filters);
@@ -835,8 +835,8 @@ void MainWindow::saveImageClick()
     {
         QString filename = sdialog.selectedFiles()[0];
         const QString selected_filter = sdialog.selectedNameFilter();
-        QPixmap pm = ui->data_plot->grab();
-        QString format = selected_filter.split(' ')[0];
+        const QPixmap pm = ui->data_plot->grab();
+        const QString format = selected_filter.split(' ')[0];
         if (!filename.endsWith("." + format))
         {
             filename = filename + "." + format;

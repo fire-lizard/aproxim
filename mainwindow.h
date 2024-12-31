@@ -42,7 +42,7 @@ private slots:
     void on_data_table_cellActivated(int row, int column) const;
     void approximateClick();
     void optionsClick();
-    void calculatePointClick();
+    void calculatePointClick() const;
     void integralClick() const;
     void differentialClick() const;
     void saveClick();
@@ -51,7 +51,7 @@ private slots:
     void aboutClick();
     void quitClick();
     void findModelClick() const;
-    void generateClick();
+    void generateClick() const;
     void saveImageClick();
 };
 

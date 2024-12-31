@@ -90,5 +90,3 @@ double Func20(double a, double b1, double b2, double x)
 {
     return a * pow(x, b1) * exp(b2 * x);
 }
-
-
