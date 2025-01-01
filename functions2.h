@@ -29,6 +29,6 @@ double Func35(double a, double b, double x, double y);
 double Func36(double a, double b, double x, double y);
 double Func37(double a, double b, double x, double y);
 double Func38(double a, double b, double x, double y, signed char n0);
-double Func39(const vector<double>& mbxy, double x, double y, signed char n0);
-double Func40(double a, double b, double b2, double x, double y);
+double Func39(const vector<double>& mbx, double x, double y, signed char n0);
+double Func40(double a, double b, double x, double y);
 #endif
