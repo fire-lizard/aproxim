@@ -10,35 +10,35 @@ double Func21(double a, double b, double x, double y)
 }
 double Func22(double a, double b, double x, double y)
 {
-    return a / (x + y) + b;
+    return a * y / x + b;
 }
 double Func23(double a, double b, double x, double y)
 {
-    return b * pow(x + y, a);
+    return b * y * pow(x, a);
 }
 double Func24(double a, double b, double x, double y)
 {
-    return pow(10, b + a * (x + y));
+    return y * pow(10, b + a * x);
 }
 double Func25(double a, double b, double x, double y)
 {
-    return exp(a * (x + y) + b);
+    return y * exp(a * x + b);
 }
 double Func26(double a, double b, double x, double y)
 {
-    return b * exp(a * (x + y));
+    return b * y * exp(a * x);
 }
 double Func27(double a, double b, double x, double y)
 {
-    return b * pow(a, x + y);
+    return b * y * pow(a, x);
 }
 double Func28(double a, double b, double x, double y)
 {
-    return b + a * log(abs(x + y)) / log(10);
+    return b + a * y * log(abs(x)) / log(10);
 }
 double Func29(double a, double b, double x, double y)
 {
-    return b + a * log(abs(x + y));
+    return b + a * y * log(abs(x));
 }
 double Func30(double a, double b, double x, double y)
 {
@@ -66,11 +66,11 @@ double Func35(double a, double b, double x, double y)
 }
 double Func36(double a, double b, double x, double y)
 {
-    return b * exp(a / (x + y));
+    return b * exp(a * y / x);
 }
 double Func37(double a, double b, double x, double y)
 {
-    return b * pow(10, a / (x + y));
+    return b * pow(10, a * y / x);
 }
 double Func38(double a, double b, double x, double y, signed char n0)
 {
