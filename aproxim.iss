@@ -41,12 +41,12 @@ Source: "release\D3Dcompiler_47.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\opengl32sw.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "release\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "release\Qt5DataVisualization.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "release\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "release\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "release\Qt5Svg.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "release\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt6Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt6DataVisualization.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt6Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt6Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt6Svg.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "release\Qt6Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "release\iconengines\*"; DestDir: "{app}\iconengines"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "release\imageformats\*"; DestDir: "{app}\imageformats"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "release\platforms\*"; DestDir: "{app}\platforms"; Flags: ignoreversion recursesubdirs createallsubdirs
